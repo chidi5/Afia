@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+<section id="section_usp_bar" style="margin-top: 1em;">
+    <div id="usp_bar">
+		<div class="row">
+
+			<div class="hidden-sm hidden-xs col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="On Afia you buy and sell directly with other users. Cutting out the middleman means you join a community market with the best prices and highest value." data-original-title="Buy and sell directly">
+					<i class="fa fa-handshake-o" style="color: #7e4d7e;" aria-hidden="true"></i>
+					<p>People Powered</p>
+				</a>
+			</div>
+
+			<div class="col-xs-4 col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="We use PayPal for payments because they provide extensive buyer and seller protections. Get what was advertised or get a refund." data-original-title="Buy and sell with confidence">
+					<i class="fa fa-paypal" aria-hidden="true"></i>
+					<p>PayPal Protection</p>
+				</a>
+			</div>
+
+			<div class="col-xs-4 col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="To keep our marketplace safe we don’t allow broken items. Every product has listing requirements and an approval process to ensure confident shopping." data-original-title="Only fully functional allowed">
+					<i class="fa fa-ban" aria-hidden="true"></i>
+					<p>No Junk</p>
+				</a>
+			</div>
+
+
+			<div class="col-xs-4 col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="Shipping costs are included in the listed price. You pay the price you see." data-original-title="No surprise costs">
+					<i class="fa fa-truck" style="color: #7e4d7e;" aria-hidden="true"></i>
+					<p>Free Shipping</p>
+				</a>
+			</div>
+
+		</div>
+    </div>
+    <hr>
+</section>
+
+<section id="section_top" style="margin-bottom: 15px;">
+
+	<div class="row">
+		<div class="col-xs-8 col-sm-9">
+			<h1 style="margin-top: 5px;">iPhones For Sale</h1>
+		</div>
+		<div class="col-xs-4 col-sm-3">
+			<a href="{% url 'sell' %}" class="btn btn-default btn-block btn-sm" title="Sell your iPhone">
+				Sell <span class="hidden-xs">iPhone</span>
+			</a>
+		</div>
+	</div>
+
+	<p style="margin-top: 5px;">
+		iPhones deals are cheaper on Afia. iPhone X prices start at $xxxx.
+	</p>
+
+</section>
+
+<section id="section_main" style="margin-bottom: 20px;">
+	<div class="row">
+        {% for c in types %}
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			<div class="cell_product search" data-alc="80">
+
+				<a href="{{ c.get_absolute_url	}}" class="image" title="Apple {{ c.name }}">
+					<img src="{{ c.image.url }}" class="img-responsive" alt="Apple {{ c.name }}">
+				</a>
+
+				<a href="{{ c.get_absolute_url	}}" class="title">
+					{{ c.name }}
+				</a>
+
+				<div class="cell_footer clearfix">
+					<a href="#" class="price">
+							$<span>649</span>+
+					</a>
+					<a href="{{ c.get_absolute_url	}}" class="icons game_icons">
+
+						<i class="fa fa-24 fa-apple"></i>
+
+					</a>
+				</div>
+			</div>
+		</div>
+        {%	endfor	%}
+    </div>
+
+</section>
+
+{%	endblock	%}
+
+<section>
+    <div	id="main"	class="product-list"> </div>
+    <h1>{% if type %}{{ type.name }}{%	endif	%}</h1>	<img src="{{ type.image.url }}">			{%	for	product	in products	%}						<div	class="item">								<a	href="{{ product.get_absolute_url	}}">{{ product.code	}}</a>								<br>								${{ product.price	}}
+						</div>				{%	endfor	%}		</div>
+</section>
+
+
+    <div	id="sidebar">
+        <h3>Types</h3>				<ul>						<li	{%	if	not type	%}class="selected"{%	endif	%}>								<a	href="{%	url	"product_list"	%}">All</a>						</li>						{%	for	c	in types	%}								<li	{%	if	type.slug == c.slug	%}class="selected"								{%	endif	%}>										<a	href="{{ c.get_absolute_url	}}">{{ c.name }}</a>								</li>						{%	endfor	%}				</ul>		</div>		<div	id="main"	class="product-list">				<h1>{%	if	type	%}{{ type.name	}}{%	else	%}Products				{%	endif	%}</h1>				{%	for	product	in products	%}						<div	class="item">								<a	href="{{ product.get_absolute_url	}}">{{ product.name	}}</a>								<br>								${{ product.price	}}
+						</div>				{%	endfor	%}		</div>
+

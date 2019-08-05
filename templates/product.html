@@ -1,0 +1,561 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<style>
+    .form-group.has-error p.help-block { font-weight: bold; }
+</style>
+    <style type="text/css">
+
+        .form-group label {
+            font-size: 1.3em;
+        }
+        p.help-block:not(.error){
+            margin-top: -5px;
+            margin-bottom: 5px;
+        }
+
+        ul.errorlist.nonfield {
+            list-style: none;
+            padding: 0;
+        }
+        .errorlist.nonfield li {
+            color: #a94442;
+        }
+
+        #price_extra .price_fee,
+        #price_extra .price_total {
+            padding: 8px 16px;
+            font-weight: 500;
+            border-radius: 4px;
+            background-color: #eceff1;
+            display: inline-block;
+        }
+        #price_extra .price_math {
+            font-weight: bolder;
+        }
+
+        #field_condition {
+            margin-bottom: 0;
+        }
+        #condition_widget .radio {
+            margin-bottom: 0;
+        }
+        #condition_widget .radio label > span {
+            font-weight: 500;
+        }
+        #condition_widget .radio label > ul {
+            font-weight: normal;
+            padding-left: 15px;
+        }
+
+        .well ul {
+            padding-left: 25px;
+        }
+
+        option:disabled, .disabled {
+            color: #dfdfdf;
+        }
+
+        input[type=radio].disabled {
+            opacity: 0.5;
+        }
+
+        #the_variant_image {
+            min-height: 200px;
+            max-height: 250px;
+        }
+        @media (max-width: 768px) {
+            #the_variant_image {
+                max-height: 200px;
+            }
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+<section id="section_top">
+    
+</section>
+    
+<section id="section_billboard" style="margin-bottom: 40px; margin-top: 20px;">
+
+    <div class="row">
+        <div class="col-sm-9">
+            <h1>Sell Device</h1>
+        </div>
+        <div class="col-sm-3 text-right">
+        
+        </div>
+    </div>
+
+</section>
+
+<section id="section_main">
+	<div class="row" style="margin-bottom: 40px;">
+        <div class="col-xs-12 col-sm-3 col-md-4 col-lg-4">
+
+            <div align="center" style="padding: 10px;">        
+                <img id="the_variant_image" src="{% static 'img/iphone-xr.png' %}" alt="Apple iPhone Xr">
+                    
+            </div>
+
+        </div>
+
+		<div class="col-xs-12 col-sm-9 col-md-8 col-lg-8">
+            <form class="form-sample" action="" id="ProductForm" method="POST" novalidate="novalidate">
+                {% csrf_token %}
+                {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{request.GET.next}}" class="form-control">
+                {% endif %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {% for error in form.non_field_errors %}
+                        {{ error }}
+                      {% endfor %}
+                    </div>
+                {% endif %}
+                <div id="variant_fields">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div id="field_category" class="form-group">
+                                <label for="id_category" class="control-label requiredField {% if form.category.errors %}text-danger{% endif %}">
+                                     Category<span class="asteriskField">*</span>
+                                </label>
+                                <div class="controls widget" {% if form.category.errors %}style="border: 1.5px solid #D9534F; border-radius: 5px;"{% endif %}>
+                                    {{form.category}}
+                                </div>
+                                <div class="help-block errors {% if form.category.errors %}text-danger{% endif %}">{{form.category.errors}}</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div id="field_device" class="form-group">
+                                <label for="id_device" class="control-label requiredField {% if form.device.errors %}text-danger{% endif %}">
+                                     Device<span class="asteriskField">*</span>
+                                </label>
+                                <div class="controls widget" {% if form.device.errors %}style="border: 1.5px solid #D9534F; border-radius: 5px;"{% endif %}>
+                                    {{form.device}}
+                                </div>
+                                <div class="help-block errors {% if form.device.errors %}text-danger{% endif %}">{{form.device.errors}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div id="field_system" class="form-group">
+                                <label for="id_system" class="control-label requiredField {% if form.system.errors %}text-danger{% endif %}">
+                                     Type<span class="asteriskField">*</span>
+                                </label>
+                                <div class="controls widget" {% if form.system.errors %}style="border: 1.5px solid #D9534F; border-radius: 5px;"{% endif %}>
+                                    {{form.system}}
+                                </div>
+                                <div class="help-block errors {% if form.system.errors %}text-danger{% endif %}">{{form.system.errors}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div id="field_model" class="form-group">
+                                <label for="id_model" class="control-label requiredField {% if form.model.errors %}text-danger{% endif %}">
+                                     Model<span class="asteriskField">*</span>
+                                </label>
+                                <div class="controls widget" {% if form.model.errors %}style="border: 1.5px solid #D9534F; border-radius: 5px;"{% endif %}>
+                                    {{form.model}}
+                                </div>
+                                <div class="help-block errors {% if form.model.errors %}text-danger{% endif %}">{{form.model.errors}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div id="field_color" class="form-group">
+                                <label for="id_color" class="control-label requiredField {% if form.color.errors %}text-danger{% endif %}">
+                                     Color<span class="asteriskField">*</span>
+                                </label>
+                                <div class="controls widget" {% if form.color.errors %}style="border: 1.5px solid #D9534F; border-radius: 5px;"{% endif %}>
+                                    {{form.color}}
+                                </div>
+                                <div class="help-block error {% if form.color.errors %}text-danger{% endif %}">{{form.color.errors}}</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div id="field_storage" class="form-group">
+                                <label for="id_storage" class="control-label  requiredField {% if form.storage.errors %}text-danger{% endif %}">
+                                     Storage<span class="asteriskField">*</span>
+                                </label>
+                                <div class="controls widget" {% if form.storage.errors %}style="border: 1.5px solid #D9534F; border-radius: 5px;"{% endif %}>
+                                    {{form.storage}}
+                                </div>
+                                <div class="help-block error {% if form.storage.errors %}text-danger{% endif %}">{{form.storage.errors}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div id="field_memory" class="form-group">
+                                <label for="id_memory" class="control-label{% if form.memory.errors %}text-danger{% endif %}">
+                                     Memory<span class="asteriskField"></span>
+                                </label>
+                                <div class="controls widget" {% if form.memory.errors %}style="border: 1.5px solid #D9534F; border-radius: 5px;"{% endif %}>
+                                    {{form.memory}}
+                                </div>
+                                <div class="help-block error {% if form.memory.errors %}text-danger{% endif %}">{{form.memory.errors}}</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div id="field_edition" class="form-group">
+                                <label for="id_edition" class="control-label requiredField {% if form.edition.errors %}text-danger{% endif %}">
+                                     Edition<span class="asteriskField">*(for phones only)</span>
+                                </label>
+                                <div class="controls widget" {% if form.edition.errors %}style="border: 1.5px solid #D9534F; border-radius: 5px;"{% endif %}>
+                                    {{form.edition}}
+                                </div>
+                                <div class="help-block error {% if form.edition.errors %}text-danger{% endif %}"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-xs-4 col-md-3">
+                                        <div id="field_price" class="field form-group required" aria-required="true">
+                                            <label for="id_price" class="control-label {% if form.price.errors %}text-danger{% endif %}">Price *</label>
+                                            <div class="controls widget">
+                                                <input data-rule-digits="true" data-rule-required="true" id="id_price" min="1" name="price" type="number" value="618" step="0.01" class="form-control" required="" {% if form.price.errors %}style="border: 1.5px solid #D9534F; border-radius: 5px;"{% endif %}>
+                                            </div>
+                                            <div class="errors help-block {% if form.price.errors %}text-danger{% endif %}">{{form.price.errors}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-8 col-md-9">
+
+                                        <div class="field form-group">
+                                            <label class="control-label" for="id_fee">Fees</label>
+                                            <div id="price_extra" class="">
+                                                <span class="price_math">+</span>
+                                                <span class="controls widget">
+                                                    <input id="id_fee" name="fee" step="0.01" type="number" class="form-control price_fee" disabled required=" " style=" {% if form.fee.errors %}border: 1.5px solid #D9534F; border-radius: 5px; {% endif %} width: 30%; margin-right: 2%; margin-left: 2%; display: inline-block;">
+                                                </span>
+                                                <span class="hidden-xs">Sale</span> Fee
+                                                <span class="price_math">=</span>
+                                                <span><input id="id_total" name="total" step="0.01" class="price_total" type="number" disabled required=" " style="{% if form.total.errors %}border: 1.5px solid #D9534F; border-radius: 5px;{% endif %} width: 30%; margin-right: 2%; margin-left: 2%; display: inline-block;"></span>
+                                                <span class="hidden-xs">Price</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+                                </div>
+
+                                <div class="well" style="margin-bottom: 0;">
+                                    <ul>
+                                         
+                                        <li>
+                                            Total Price is shown to buyers
+                                        </li>
+                                        <li>
+                                            <a href="#">Sale fee</a> is paid by <b>buyers</b> (not sellers)
+                                        </li>
+                                        
+                                        <li>
+                                            Payment will be sent via PayStack to <b>{{user.email}}</b>
+                                            
+                                                (<a href="#" target="_blank">edit</a>)
+                                            
+                                        </li>
+                                        
+                                        <li>
+                                            PayStack will charge <a href="#" target="_paystack">their fees</a> in accordance with their policies
+                                        </li>
+                                        <li>
+                                            Please include reasonable <a href="#" target="_blank">seller-paid shipping costs</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div id="condition_widget" class="panel panel-default">
+                    <div class="panel-body form-group">              
+                        <div id="field_condition" class="field form-group required {% if form.condition.errors %}text-danger{% endif %}" aria-required="true">
+                            <label for="id_condition" class="control-label">Condition *</label>
+                        </div>
+                        <hr>
+                        <div class="row" id="id_condition">
+                            
+                            <div class="col-md-4">
+
+                                <div class="radio">
+                                    <label for="id_condition_0">
+                                        <input type="radio" id="id_condition_0" name="condition" value="Mint" required="">
+                                        <span id="label_condition_0">Mint</span>
+                                        <ul style="font-size: 0.9em;">
+                                            
+                                            <li>Pristine condition, no signs of wear and tear</li>
+                                            
+                                            <li>Power cord/charger optional</li>
+                                            
+                                            <li>Retail packaging and manuals optional</li>
+                                            
+                                        </ul>
+                                    </label>
+                                </div>
+
+                            </div>
+                            
+                            <div class="col-md-4">
+
+                                <div class="radio">
+                                    <label for="id_condition_1">
+                                        <input type="radio" id="id_condition_1" name="condition" value="Good" required="">
+                                        <span id="label_condition_1">Good</span>
+                                        <ul style="font-size: 0.9em;">
+                                            
+                                            <li>Excellent condition, minor wear and tear</li>
+                                            
+                                            <li>Power cord/charger optional</li>
+                                            
+                                            <li>Retail packaging and manuals optional</li>
+                                            
+                                        </ul>
+                                    </label>
+                                </div>
+
+                            </div>
+                            
+                            <div class="col-md-4">
+
+                                <div class="radio">
+                                    <label for="id_condition_2">
+                                        <input type="radio" id="id_condition_2" name="condition" value="Fair" required="">
+                                        <span id="label_condition_2">Fair</span>
+                                        <ul style="font-size: 0.9em;">
+                                            
+                                            <li>Noticeable wear and tear</li>
+                                            
+                                            <li>Power cord/charger optional</li>
+                                            
+                                            <li>Retail packaging and manuals optional</li>
+                                            
+                                        </ul>
+                                    </label>
+                                </div>
+
+                            </div>
+                            
+                        </div>
+
+                        <hr class="hidden-sm hidden-xs">
+
+                        
+                        <div class="radio">
+                            <label for="id_condition_3">
+                                <input type="radio" id="id_condition_3" name="condition" value="New" required="" style="left: 20px;">
+                                <span style="float: left;" id="label_condition_3">New</span>
+                                <ul style="font-size: 0.9em; float: left; margin-bottom: 0px;" class="list-inline">
+                                    
+                                    <li>• Unopened retail packaging (if sealed)</li>
+                                    
+                                    <li>• Never used (if not sealed from the factory)</li>
+                                    
+                                </ul>
+                            </label>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div id="field_damage_description" class="field form-group">
+                    <label for="id_damage_description" class="control-label">Damage description </label>
+                    
+                    <p class="help-block">Describe any imperfections, damage the device has sustained, and/or repairs made.</p>
+                    
+                    <div class="controls widget">
+                        <textarea cols="40" id="id_damage_description" maxlength="1000" name="damage_description" rows="3" class="form-control"></textarea>
+                    </div>
+                    <div class="errors help-block">{{form.damage_description.errors}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                            
+                        <div id="field_serial" class="field form-group" aria-required="true">
+                            <label for="id_serial" class="control-label {% if form.serial.errors %}text-danger{% endif %}">Device ESN *</label>
+                            
+                            <div class="controls widget">
+                                <input id="id_serial" maxlength="20" name="serial" type="text" class="form-control" aria-required="true" {% if form.serial.errors %}style="border: 1.5px solid #D9534F; border-radius: 5px;"{% endif %}>
+                            </div>
+                            <div class="errors help-block {% if form.serial.errors %}text-danger{% endif %}">{{form.serial.errors}}</div>
+                        </div>
+                    </div>
+                
+                    <div class="col-sm-6">
+                        <div class="alert alert-info">
+                            <i class="fa fa-question-circle"></i>
+                            How find the ESN / IMEI / MEID<br>
+                            
+                                <a href="#" target="_blank">
+                                    Find the serial number of your product »
+                                </a>
+                        </div>
+                    </div>
+                
+                </div>
+                
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="field_shipping_location" class="field form-group required" aria-required="true">
+                            <label for="id_shipping_location" class="control-label {% if form.shipping_location.errors %}text-danger{% endif %}">Ship From Location *</label>
+                            
+                            <p class="help-block">The location (e.g. city and state) you will ship from.</p>
+                            
+                            <div class="controls widget">
+                                <input data-rule-required="true" id="id_shipping_location" maxlength="10" name="shipping_location" type="text" class="form-control" aria-required="true" {% if form.shipping_location.errors %}style="border: 1.5px solid #D9534F; border-radius: 5px;"{% endif %}>
+                            </div>
+                            <div class="errors help-block {% if form.shipping_location.errors %}text-danger{% endif %}">{{form.shipping_location.errors}}</div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="field form-group">
+                            <label for="id_express_shipping" class="control-label">
+                                Allow Express Shipping
+                            </label>
+                            <p class="help-block">
+                                Allow optional express shipping to the buyer?
+                            </p>
+                            <div class="controls widget">
+                                <div style="font-size: 14px; padding: 5px;">
+                                    <input id="id_express_shipping" type="checkbox" name="express_shipping" style="font-size: 14px;">
+                                    Allow Express Shipping option?
+                                </div>
+                            </div>
+                            <div class="errors help-block">{{form.express_shipping.errors}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div id="field_description" class="field form-group">
+                    <label for="id_description" class="control-label">Description </label>
+                    
+                    <div class="controls widget">
+                        <textarea cols="40" data-rule-maxlength="1000" id="id_description" maxlength="1000" name="description" rows="3" class="form-control"></textarea>
+                    </div>
+                    <div class="errors help-block">{{form.description.errors}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="pull-right">
+                            <button type="submit" name="publish" class="btn btn-primary btn-lg">
+                                Publish
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+                   
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+{% block js %}
+<script type="text/javascript">
+
+	var sale_tiered_fees = [[0, 0], [50, 5], [100, 10], [300, 15], [500, 20], [700, 25], [999, 35], [1999, 50], [2999, 100], [3999, 150], [4999, 200], [5999, 250]];
+
+	function updatePriceAndFee() {
+	    var price = parseInt($("#id_price").val(), 10)
+		var fee_price = 0;
+
+
+        for (var index = sale_tiered_fees.length - 1; index >= 0; --index) {
+            if (price > sale_tiered_fees[index][0]) {
+                fee_price = sale_tiered_fees[index][1];
+                break;
+            }
+        }
+
+
+		$(".price_fee").html(fee_price);
+        document.getElementById('id_fee').value = fee_price;
+		if (price) {
+			$(".price_total").html(price + fee_price);
+			document.getElementById('id_total').value = price + fee_price;
+		} else {
+			$(".price_total").html("?");
+			document.getElementById('id_total').value = 0;
+		}
+	}
+
+	function updatePricingGuide() {
+		var platform_slug = $("#id_platform").val();
+		if (platform_slug != "") {
+			$(".price_info").hide();
+			$("#price_info_"+platform_slug).show();
+		} else {
+			$(".price_info").show();
+		}
+	}
+
+	$(function() {
+		// this updates the price fee and total when the user changes the price
+        $("#id_price").change(function () {
+			updatePriceAndFee();
+		});
+
+		updatePriceAndFee();
+		updatePricingGuide();
+	});
+
+</script>
+{% endblock %}

@@ -1,0 +1,378 @@
+{% extends	"base.html"	%}
+
+{% load static %}
+
+{% block css %}
+    <style>
+		.cart_item {
+			display: block;
+			padding: 10px;
+			border: 1px solid #eceff1;
+			border-radius: 4px;
+			margin-bottom: 15px;
+		}
+		.cart_item hr {
+			margin: 10px 0px;
+		}
+		.cart_item .product_name {
+			font-weight: bold;
+			font-size: 16px;
+		}
+		.cart_item a.product_name {
+			display: block;
+		}
+		.cart_item .product_image img {
+			display: block;
+			max-height: 100px;
+		}
+		.cart_item .listing_code {
+		}
+		.cart_item .total_price {
+			font-weight: bold;
+			font-size: 16px;
+		}
+		.cart_item a.total_price {
+			display: block;
+		}
+		.cart_item .headline {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			color: #888888;
+		}
+		.cart_item .seller_info {
+			height: 40px;
+		}
+		.cart_item .seller_info img {
+			height: 40px;
+			width: 40px;
+		}
+		.cart_item_not_buyable a {
+			color: #888888;
+		}
+		.cart_item a.cart_item_remove {
+			color: #b0bec5;
+		}
+
+		.cart_total {
+			font-weight: bold;
+		}
+        input.check_express, input.check_warranty {
+			transform: scale(1.25);
+		}
+		a.check_express_label, a.check_warranty_label {
+			color: #F76808;
+		}
+		.cart_item_form .total_price {
+			color: #F76808;
+		}
+	</style>
+
+{% endblock %}
+
+{% block content %}
+    <div class="messages">
+	</div>
+
+<section id="section_usp_bar" style="margin-top: 1em;">
+    <div id="usp_bar">
+		<div class="row">
+
+			<div class="hidden-sm hidden-xs col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="On Afia you buy and sell directly with other users. Cutting out the middleman means you join a community market with the best prices and highest value." data-original-title="Buy and sell directly">
+					<i class="fa fa-handshake-o" style="color: #7e4d7e;" aria-hidden="true"></i>
+					<p>People Powered</p>
+				</a>
+			</div>
+
+			<div class="col-xs-4 col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="We use PayPal for payments because they provide extensive buyer and seller protections. Get what was advertised or get a refund." data-original-title="Buy and sell with confidence">
+					<i class="fa fa-paypal" aria-hidden="true"></i>
+					<p>PayPal Protection</p>
+				</a>
+			</div>
+
+			<div class="col-xs-4 col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="To keep our marketplace safe we don’t allow broken items. Every product has listing requirements and an approval process to ensure confident shopping." data-original-title="Only fully functional allowed">
+					<i class="fa fa-ban" aria-hidden="true"></i>
+					<p>No Junk</p>
+				</a>
+			</div>
+
+
+			<div class="col-xs-4 col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="Shipping costs are included in the listed price. You pay the price you see." data-original-title="No surprise costs">
+					<i class="fa fa-truck" style="color: #7e4d7e;" aria-hidden="true"></i>
+					<p>Free Shipping</p>
+				</a>
+			</div>
+
+		</div>
+    </div>
+    <hr>
+</section>
+
+<section id="breadcrumbs" style="margin-bottom: 30px;">
+</section>
+
+
+{% with total_items=cart|length	%}
+    {% if cart|length	> 0 %}
+        <section id="section_top">
+            <div class="row">
+                <div class="col-xs-6 col-sm-9">
+                    <h1 style="margin-top: 10px;">Cart</h1>
+                </div>
+                <div class="col-xs-6 col-sm-3">
+                    <div class="alert alert-success" align="center">
+                        {{ total_items }} <small>item{{ total_items|pluralize }}</small>,
+                        <sup>$</sup><span class="cart_total">{{ cart.get_total_price }}</span> <small>total</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section_billboard" style="margin-bottom: 20px;">
+            <div class="row">
+                <div class="col-xs-12 col-sm-9">
+                    <div class="cart_items">
+            {%	for	item in cart %}
+                {% with product=item.product %}
+                        <div>
+                            <div class="cart_item " data-uuid="" data-total="{{ cart.get_total_price }}">
+                                <div class="row">
+                                    <div class="col-xs-3 col-sm-2" align="center">
+
+                                        <a href="{{ product.get_absolute_url }}" class="product_image" title="{{ product.code }}: {{ product.device }} {{ product.system }} [{{ product.model }}] - {{ product.color }}, {{ product.storage }}">
+
+                                            <img src="{{ product.system.image.url }}" height="100" width="50.67" class="img-responsive" alt="{{ product.device }} {{ product.system }} [{{ product.model }}] - {{ product.color }}, {{ product.storage }}">
+
+                                        </a>
+
+                                        <a href="{%	url	"cart:cart_remove" product.id %}" class="btn btn-link btn-sm cart_item_remove" style="margin-top: 10px;">
+                                            Remove
+                                        </a>
+
+                                    </div>
+                                    <div class="col-xs-9 col-sm-10">
+
+                                        <div class="row">
+                                            <div class="col-xs-9 col-sm-8" align="left">
+                                                <a href="{{ product.get_absolute_url }}" class="product_name" title="{{ product.device }} {{ product.system }} [{{ product.model }}] - {{ product.color }}, {{ product.storage }}">
+                                                    {{ product.device }} {{ product.system }}
+                                                </a>
+                                            </div>
+                                            <div class="col-xs-3 col-sm-4" align="right">
+                                                <a href="{{ product.get_absolute_url }}" class="total_price">
+                                                    ${{ item.total_price }}
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="row">
+                                            <div class="col-xs-12">
+
+                                                <div class="listing_info">
+                                                    <a href="{{ product.get_absolute_url }}" class="listing_code" title="Listing code: {{ product.code }}">
+                                                        {{ product.code }}
+                                                    </a>
+                                                    <span class="condition_label">&nbsp;•&nbsp;{{ product.condition }}</span>
+                                                    &nbsp;•&nbsp;<span class="modeln_label">{{ product.model }}</span>
+                                                    &nbsp;•&nbsp;<span class="color_label">{{ product.color }}</span>
+                                                    &nbsp;•&nbsp;<span class="storage_label">{{ product.storage }}</span>
+
+                                                        <span><i class="fa fa-fw fa-star" style="color: #F76808;"></i></span>
+
+                                                </div>
+
+                                                <div class="headline">
+                                                    {{ product.system }} {{ product.storage }} {{ product.color }} {{ product.model }}
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-8">
+
+                                                <div class="seller_info" align="left" style="border: 0px solid blue;">
+                                                    <div class="seller_image pull-left" style="margin-right: 10px; position: relative;">
+
+                                                        <img class="media-object circle_image" src="{% if product %}{{ product.user.image.url }}{% elif product.user.socialaccount_set.all.0.get_avatar_url%}{{ product.user.socialaccount_set.all.0.get_avatar_url }}{% else%}{% static '/img/blank-profile.png'%}{% endif %}" alt="{% if product.display_name != none %}{{ product.display_name }}{% else%}{{ product.user.get_full_name }}{% endif %}" height="50" width="50">
+
+                                                    </div>
+
+                                                    <div class="seller_name">
+                                                        {% if product.display_name != none %}{{ product.display_name }}{% else%}{{ product.user.first_name }}{% endif %}
+                                                    </div>
+                                                    <div class="text-nowrap" style="overflow: hidden;">
+
+                                                            <span class="stars" data-value="4.5" title="good"><i class="fa fa-fw fa-star" title="good" data-score="1"></i><i class="fa fa-fw fa-star" title="good" data-score="2"></i><i class="fa fa-fw fa-star" title="good" data-score="3"></i><i class="fa fa-fw fa-star" title="good" data-score="4"></i><i class="fa fa-fw fa-star-half-o" title="good" data-score="5"></i><input type="hidden" name="score" value="4.5" readonly="readonly"></span>
+                                                            <sup>23</sup> -
+                                                            <span>{{ product.shipping_location }}</span>
+
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4">
+
+                                                <hr class="visible-xs">
+
+                                                <div>
+
+                                                    <a href="{% url	"orders:order_create" %}" class="btn btn-primary btn-block btn_buy_item" title="{{ product.device }} {{ product.system }} [{{ product.model }}] - {{ product.color }}, {{ product.storage }}">
+                                                        Buy Now: $<span class="cart_item_total">{{ item.total_price }}</span>
+                                                    </a>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                                <hr>
+                                <div class="row" style="">
+
+                                    <form id="form_item_0589520b-3ef9-47aa-91ff-536b2f22b60b" action="/cart/save/0589520b-3ef9-47aa-91ff-536b2f22b60b" method="get" class="cart_item_form">
+                                        <input type="hidden" name="csrfmiddlewaretoken" value="L6hipaSKlhhni2xDLRWRYzUS4zLHDYxp" class="form-control">
+                                        <div>
+                                            {%	if product.express_shipping == True %}
+                                            <div class="hidden-xs col-sm-2">
+                                                <!-- Empty -->
+                                            </div>
+                                            <div class="col-xs-5 col-sm-4">
+
+                                                    <input type="checkbox" name="express_select" value="1" class="check_express">
+                                                    <a href="javascript:promptExpressShipping('0589520b-3ef9-47aa-91ff-536b2f22b60b');" title="More Info" class="check_express_label" style="margin-left: 5px;">
+                                                        Express Shipping + $25.00
+                                                    </a>
+
+                                            </div>
+                                            <div class="col-xs-5 col-sm-4">
+
+                                                    <input type="checkbox" name="warranty_select" value="1" class="check_warranty">
+                                                    <a href="javascript:promptProtectionPlan('0589520b-3ef9-47aa-91ff-536b2f22b60b');" title="More Info" class="check_warranty_label" style="margin-left: 5px;">
+                                                        Protection Plan + $70.00
+                                                    </a>
+
+                                            </div>
+                                            {% endif %}
+                                            <div class="hidden-xs col-sm-2">
+                                                <!-- Empty -->
+                                            </div>
+                                            <div class="col-xs-5 col-sm-4">
+                                            </div>
+                                            <div class="col-xs-5 col-sm-4">
+                                            </div>
+
+                                            <div class="col-xs-2" align="right">
+                                                <div class="total_price" style="margin-top: 2px;">
+                                                    <span class="hidden-xs">=</span> $<span class="cart_item_total">{{ item.total_price }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                {% endwith %}
+            {% endfor %}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+
+                    <div class="well" style="font-size: 12px;">
+                        <p>
+                            Use the Cart to keep track of listings you want to buy.
+                        </p>
+                        <p>
+                            Remember, items in your cart can still be bought by other users.
+                        </p>
+                        <p>
+                            To buy a listing in your cart click on its Buy Now button.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    {% else %}
+        <section id="section_top">
+            <div class="row">
+                <div class="col-xs-6 col-sm-9">
+                    <h1 style="margin-top: 10px;">Cart</h1>
+                </div>
+                <div class="col-xs-6 col-sm-3">
+                    <div class="alert alert-success" align="center">
+                        {{ total_items }} <small>item{{ total_items|pluralize }}</small>,
+                        <sup>$</sup><span class="cart_total">{{ cart.get_total_price }}</span> <small>total</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section_billboard" style="margin-bottom: 20px;">
+            <div class="row">
+                <div class="col-xs-12 col-sm-9">
+                    <div class="cart_items">
+
+                        <p class="alert alert-warning">
+                            No items in your cart... Get to shopping!
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-3">
+
+                    <div class="well" style="font-size: 12px;">
+                        <p>
+                            Use the Cart to keep track of listings you want to buy.
+                        </p>
+                        <p>
+                            Remember, items in your cart can still be bought by other users.
+                        </p>
+                        <p>
+                            To buy a listing in your cart click on its Buy Now button.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endwith %}
+
+{% endblock %}
+
+{% block js %}
+
+    <script type="text/javascript">
+
+        // confirmation before removing cart item
+        $("a.cart_item_remove").on('click', function (e) {
+            e.preventDefault();
+            var answer = confirm("Remove item from cart?");
+            if (answer) {
+                window.location = $(this).attr('href');
+            }
+        });
+
+    </script>
+{% endblock %}
+
+
+
+

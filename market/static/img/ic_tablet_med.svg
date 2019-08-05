@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+<style>
+  .a{
+    stroke-width:2;
+    stroke:#73911B;
+  }
+</style>
+  <title>
+    ic_tablet_med
+  </title>
+  <desc>
+    Copyright 2017 Swappa, LLC
+  </desc>
+  <g fill="none">
+      <rect x="4" y="16" width="88" height="64" rx="2" class="a"/>
+      <rect x="12" y="20" width="72" height="56" class="a"/>
+      <path d="M25 66L71 66 71 70 25 70 25 66ZM72 66L76 66C77.1 66 78 66.9 78 68 78 69.1 77.1 70 76 70L72 70 72 66ZM18 68L24 66 24 70 18 68Z" fill="#73911B"/>
+  </g>
+</svg>

@@ -1,0 +1,433 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load ratings %}
+
+{% block css %}
+<style>
+  .my-swappa-thumbnail {
+    width: 80px;
+  }
+    .my-swappa-menu-item {
+        font-weight: bold;
+    }
+    .my-swappa-menu-subitem {
+        padding-left: 30px;
+    }
+    .list-group-item a {
+        color: #555555;
+    }
+    .list-group-item a.active {
+        color: #009a44;
+        font-weight: bold;
+    }
+    .list-group-item a:hover, a.list-group-item:hover {
+        color: #009a44;
+    }
+    .list-group-item ul {
+        margin-bottom: 0;
+        margin-top: 5px;
+    }
+    .list-group-item li {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+    /* bootstrap overrides */
+    a.list-group-item.active:hover, a.list-group-item.active:focus {
+        background-color: #eceff1;
+        border: 1px solid #eceff1;
+        border-width: 1px 0;
+        box-shadow: none;
+        z-index: 50;
+    }
+    .list-group .list-group-item:hover {
+        background-color: #eceff1;
+        box-shadow: none;
+        z-index: 50;
+    }
+    .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+        border: 1px solid #eceff1;
+        border-width: 1px 0;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="messages"></div>
+
+<section id="section_usp_bar">
+</section>
+
+<section id="breadcrumbs">
+  <div class="row">
+    <div class="col-md-9">
+    </div>
+    <div class="col-md-3" style="margin-bottom: 15px;">
+      <div class="dropdown">
+        <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdown_bpo" data-toggle="dropdown" aria-expanded="true">
+          <i class="fa fa-fw fa-user"></i>
+          My Afia
+          <i class="caret"></i>
+        </button>
+        <ul class="dropdown-menu col-xs-12" role="menu" aria-labelledby="dropdown_bpo">
+          <li role="presentation">
+            <a href="{% url 'afia' %}" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-dashboard"></i> &nbsp;
+              Dashboard
+            </a>
+          </li>
+
+          <li role="presentation" class="divider"></li>
+
+          <li role="presentation" class="dropdown-header">
+            Buying
+          </li>
+
+          <li role="presentation">
+            <a href="#" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-shopping-cart"></i> &nbsp;
+              Purchases
+            </a>
+          </li>
+          <li role="presentation" class="divider"></li>
+
+          <li role="presentation" class="dropdown-header">
+            Selling
+          </li>
+
+          <li role="presentation">
+            <a href="#" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-usd"></i> &nbsp;
+              Sales
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="#" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-list"></i> &nbsp;
+              Listings
+            </a>
+          </li>
+          <li role="presentation">
+          
+          </li>
+          <li role="presentation">
+            <a href="#" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-star"></i> &nbsp;
+              Feature Listings
+            </a>
+          </li>
+
+          <li role="presentation" class="divider"></li>
+
+          <li role="presentation">
+            <a href="#" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-archive"></i> &nbsp;
+              My Archive
+            </a>
+          </li>
+
+          <li role="presentation" class="divider"></li>
+
+          <li role="presentation" class="dropdown-header">
+            Profile
+          </li>
+
+          <li role="presentation">
+            <a href="{% url 'profile' %}" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-user-circle"></i> &nbsp;
+              View Profile »
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="{% url 'me' %}" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-edit"></i> &nbsp;
+              Edit Profile
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="{% url 'account_logout'%}" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-sign-out"></i> &nbsp;
+                Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="section_top" style="margin-bottom: 9px;">
+
+    
+
+    <div class="row">
+        <div class="col-xs-8">
+            
+                <h1>{{user.display_name}} <small>Profile {{user.pk}}</small></h1>
+            
+        </div>
+        <div class="col-xs-4" align="right">
+
+            
+
+        </div>
+    </div>
+
+</section>
+
+<section id="section_billboard"></section>
+
+    <div class="row">
+    <div class="col-sm-3 hidden-xs">
+
+        <div class="panel panel-default">
+            <div class="list-group">
+                
+                <a href="{% url 'afia'%}" class="list-group-item my-swappa-menu-item active">My Afia</a>
+                <div class="list-group-item">
+                    <a class="my-swappa-menu-item caret-icon" data-toggle="collapse" href="#my-listings" expanded="false">
+                        My Listings
+                        <i class="fa fa-caret-down pull-right"></i>
+                    </a>
+                    <div class="collapse" id="my-listings">
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="my-swappa-menu-subitem">Active</a></li>
+                            <li><a href="#" class="my-swappa-menu-subitem">All</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <a class="my-swappa-menu-item caret-icon" data-toggle="collapse" href="#my-purchases" expanded="false">
+                        My Purchases
+                        <i class="fa fa-caret-down pull-right"></i>
+                    </a>
+                    <div class="collapse" id="my-purchases">
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="my-swappa-menu-subitem">Active</a></li>
+                            <li><a href="#" class="my-swappa-menu-subitem">All</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <a class="my-swappa-menu-item caret-icon" data-toggle="collapse" href="#my-sales" expanded="false">
+                        My Sales
+                        <i class="fa fa-caret-down pull-right"></i>
+                    </a>
+                    <div class="collapse" id="my-sales">
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="my-swappa-menu-subitem">Active</a></li>
+                            <li><a href="#" class="my-swappa-menu-subitem">All</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="#" class="list-group-item my-swappa-menu-item">My Archive</a>
+                <div class="list-group-item">
+                    <a class="my-swappa-menu-item caret-icon" data-toggle="collapse" href="#my-profile" expanded="false">
+                        My Profile
+                        <i class="fa fa-caret-down pull-right"></i>
+                    </a>
+                    <div class="collapse" id="my-profile">
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'me' %}" class="my-swappa-menu-subitem">Edit Profile</a></li>
+                            <li><a href="{% url 'profile' %}" class="my-swappa-menu-subitem">View Profile</a></li>
+                            <li><a href="#" class="my-swappa-menu-subitem">Payment Settings</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9 col-md-9 col-lg-5">
+        <div id="profile_panel" class="panel panel-info">
+            <div class="panel-heading">
+                <i class="fa fa-user"></i>
+                <a class="" title="View Profile">
+                    <span class="profile_panel_title">Profile Information</span>
+                </a>
+                <div class="pull-right">
+                    <a class="has_tooltip" title="" data-original-title="View Profile">
+                        <i class="fa fa-chevron-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="media">
+                    <a class="pull-left">
+                        
+                            <img src="{% if user.image.url != None %} {{user.image.url}}{% elif user.socialaccount_set.all.0.get_avatar_url %} {{ user.socialaccount_set.all.0.get_avatar_url }} {% else%} {% static '/img/blank-profile.png'%} {% endif %}" alt="Profile Image" height="50" width="50">
+                        
+                    </a>
+                    <div class="media-body">
+                        <p>
+                            <b>{{user.display_name}}</b>
+                            
+                        </p>
+                        <p>
+                            Afia user since:
+                            <nobr>{{user.date_joined}}</nobr>
+                        </p>
+                        
+                    </div>
+                </div>
+
+                <table class="table table-bordered table-condensed" style="margin-bottom: 0px;">
+                    
+                    <tbody><tr>
+                        <th>
+                            Ratings
+                        </th>
+                        <td>
+                            <span id="stars-swappa" class="stars stars-swappa" data-value="0" title="Not rated yet!"><i class="fa fa-fw fa-star-o" title="Not rated yet!" data-score="1"></i><i class="fa fa-fw fa-star-o" title="Not rated yet!" data-score="2"></i><i class="fa fa-fw fa-star-o" title="Not rated yet!" data-score="3"></i><i class="fa fa-fw fa-star-o" title="Not rated yet!" data-score="4"></i><i class="fa fa-fw fa-star-o" title="Not rated yet!" data-score="5"></i><input type="hidden" name="score" value="0" readonly="readonly"></span> (0)
+                        </td>
+                    </tr>
+                    
+                </tbody></table>
+
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="col-sm-9 col-md-9 col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="profile_panel_title">More Information</span>
+            </div>
+            <div class="panel-body">
+                
+                <ul>
+                
+                    <li>
+                        Has sold 0 listing(s) on Afia
+                    </li>
+                    <li>
+                        Has bought 0 listing(s) on Afia
+                    </li>
+                    <li>
+                        Has {{ count }} active listing(s) on Afia
+                    </li>
+                    <li>
+                        Has commented 0 times on Afia listings
+                    </li>
+                
+                </ul>
+                
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<hr>
+
+<div id="section_feedbacks">
+        <div class="row">
+
+            <div class="col-md-6">
+            
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Seller Ratings
+                        <span class="badge pull-right">0</span>
+                    </div>
+
+                    
+                        <div class="panel-body">
+                            This user has not received any feedback ratings.
+                        </div>
+                    
+
+                    <div class="panel-footer" style="text-align: right;">
+                        <p>See All Feedbacks »</p>
+                    </div>
+                </div>
+            
+            </div>
+
+        </div>
+    </div>
+
+    <div id="section_listings">
+
+
+        <h2 class="panel-heading">
+            Active Listings
+            <span class="badge">{{ count }}</span>
+        </h2>
+
+
+            {% if count == 0 %}
+                <p class="panel-body">
+                    This user does not have any other active listings.
+                </p>
+            {% else %}
+                {% for product in products %}
+                    <p>
+                        <div class="listing_row listing_none" data-index="1">
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                                    <div class="seller_info">
+                                        <div class="pull-left" style="margin-right: 8px; position: relative;">
+
+                                            <img class="media-object" src="{{ product.system.image.url }}" alt="{{ product.system.name }}" height="40" width="30">
+
+                                        </div>
+                                        <div class="media-body" style="display: block; width: inherit;">
+                                            <div class="row">
+                                                <div class="col-xs-9 col-sm-10 col-md-12">
+                                                    <div class="text-nowrap" style="overflow: hidden;">
+                                                        <span>{{ product.system.name }}</span>
+                                                        <!--<span class="seller_tag _paypal"><i class="fa fa-paypal" aria-hidden="true"></i></span>--->
+                                                    </div>
+                                                    <div class="text-nowrap" style="overflow: hidden;">
+                                                        <span>{{ product.shipping_location}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xs-3 col-sm-2 hidden-md hidden-lg text-right">
+                                                    <span class="price"><sup>$</sup>{{ product.total }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                                    <div class="listing_info">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-10">
+                                                <span class="condition_label">{{ product.condition }}</span>
+                                                &nbsp;•&nbsp;<span class="modeln_label">{{ product.model }}</span>
+                                                &nbsp;•&nbsp;<span class="color_label">{{ product.color }}</span>
+                                                &nbsp;•&nbsp;<span class="storage_label">{{ product.storage }}</span>
+
+                                                <div class="clearfix"></div>
+                                                <div class="headline hidden-xs text-nowrap" style="overflow: hidden;">
+                                                    {{ product.system.name }} {{ product.storage }} {{ product.color }} {{ product.model }}
+                                                </div>
+                                            </div>
+                                            <div class="hidden-xs hidden-sm col-md-2 text-right">
+
+                                                <span class="price"><sup>$</sup>{{ product.total }}</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </p>
+                {% endfor %}
+            {% endif %}
+
+    </div>
+
+{% endblock %}

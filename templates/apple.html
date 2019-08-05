@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<style>
+a.btn:hover{
+    color: black;
+}
+</style>
+
+{% endblock %}
+
+{% block content %}
+<section id="section_usp_bar" style="margin-top: 1.5em;">
+    <div id="usp_bar">
+		<div class="row">
+
+			<div class="hidden-sm hidden-xs col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="On Afia you buy and sell directly with other users. Cutting out the middleman means you join a community market with the best prices and highest value." data-original-title="Buy and sell directly">
+					<i class="fa fa-handshake-o" style="color: #7e4d7e;" aria-hidden="true"></i>
+					<p>People Powered</p>
+				</a>
+			</div>
+
+			<div class="col-xs-4 col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="We use PayPal for payments because they provide extensive buyer and seller protections. Get what was advertised or get a refund." data-original-title="Buy and sell with confidence">
+					<i class="fa fa-paypal" aria-hidden="true"></i>
+					<p>PayPal Protection</p>
+				</a>
+			</div>
+
+			<div class="col-xs-4 col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="To keep our marketplace safe we don’t allow broken items. Every product has listing requirements and an approval process to ensure confident shopping." data-original-title="Only fully functional allowed">
+					<i class="fa fa-ban" aria-hidden="true"></i>
+					<p>No Junk</p>
+				</a>
+			</div>
+
+
+			<div class="col-xs-4 col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="Shipping costs are included in the listed price. You pay the price you see." data-original-title="No surprise costs">
+					<i class="fa fa-truck" style="color: #7e4d7e;" aria-hidden="true"></i>
+					<p>Free Shipping</p>
+				</a>
+			</div>
+
+		</div>
+    </div>
+    <hr>
+</section>
+
+<section id="section_top" style="margin-bottom: 2em; margin-top: 2em;">
+
+	<div class="row">
+		<div class="col-xs-8 col-sm-9">
+			<h1 style="font-weight: bold; font-size: 23px;">Apple</h1>
+		</div>
+		<div class="col-xs-4 col-sm-3">
+			<a href="#" class="btn btn-block" style="background: #7e4d7e; border-radius: 5px; font-size: 12px; color: white;" title="Sell used Apple products">
+				Sell
+			</a>
+		</div>
+	</div>
+
+	<p style="font-size: 14px;">
+		<i class="fa fa-apple" style="font-size: 14px;"></i> iPhones, iPads, MacBooks, Apple Watches and more!
+	</p>
+
+</section>
+
+
+<section id="section_billboard" style="margin-bottom: 10px;">
+
+	<div class="row">
+
+		<div class="col-xs-6 col-sm-4 col-md-3">
+			<div class="cell_product device_pop">
+				<a href="{% url 'iphone'%}" class="image" title="Used iPhones for sale">
+					<img src="{% static '/img/iphone8.png' %}" class="img-responsive" style="max-height: 150px;" alt="Used iPhone">
+				</a>
+				<a href="{% url 'iphone'%}" class="title" title="Buy used iPhones">
+					iPhone
+				</a>
+			</div>
+		</div>
+        <div class="col-xs-6 col-sm-4 col-md-3">
+			<div class="cell_product device_pop">
+				<a href="#" class="image" title="Used and refurbished MacBooks">
+					<img src="{% static '/img/category_laptops.jpg' %}" class="img-responsive" alt="Used MacBook">
+				</a>
+				<a href="#" class="title" title="Used and refurbished MacBooks">
+					MacBook
+				</a>
+			</div>
+		</div>
+
+		<div class="col-xs-6 col-sm-4 col-md-3">
+			<div class="cell_product device_pop">
+				<a href="#" class="image" title="Used iPads for kids">
+					<img src="{% static '/img/ipad-air.png' %}" class="img-responsive" style="max-height: 150px;" alt="Used iPad for kids">
+				</a>
+				<a href="#" class="title" title="Buy used iPads">
+					iPad
+				</a>
+			</div>
+		</div>
+
+		<div class="col-xs-6 col-sm-4 col-md-3">
+			<div class="cell_product device_pop">
+				<a href="#" class="image" title="Apple Watch sale">
+					<img src="{% static '/img/apple_watch.jpg' %}" class="img-responsive" alt="Used Apple Watch">
+				</a>
+				<a href="#" class="title" title="Used Apple Watch">
+					Apple Watch
+				</a>
+			</div>
+		</div>
+    </div>
+</section>
+
+<section id="section_main" style="margin-bottom: 20px;">
+
+	<!-- iPhones -->
+	<div class="row">
+		<div class="col-xs-6">
+			<h2 style="margin-top: 0px; font-weight: bold; font-size: large;">iPhones</h2>
+		</div>
+		<div class="col-xs-6" align="right">
+			<a href="{% url 'iphone'%}" class="btn btn-link" title="Shop used iPhones" style="color: #7e4d7e;">
+				<i class="fa fa-chevron-right" aria-hidden="true" style="color: #7e4d7e;"></i> Shop
+			</a>
+			<a href="#" class="btn btn-link" title="Sell used iPhone" style="color: #7e4d7e;">
+				<i class="fa fa-chevron-right" aria-hidden="true" style="color: #7e4d7e;"></i> Sell
+			</a>
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search">
+                <a href="#" class="image" title="Apple iPhone Xr">
+                    <img src="{% static '/img/iphone-xr.png' %}" class="img-responsive" alt="Apple iPhone Xr">
+                </a>
+                <a href="#" class="title">
+                    iPhone Xr
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price" style="margin-top: .4em;">
+                        $<span>570</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple" style="font-size: 20px;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search">
+                <a href="#" class="image" title="Apple iPhone Xr">
+                    <img src="{% static '/img/iphone-xs.png' %}" class="img-responsive" alt="Apple iPhone Xs">
+                </a>
+                <a href="#" class="title">
+                    iPhone Xs
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price" style="margin-top: .4em;">
+                        $<span>700</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple" style="font-size: 20px;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search">
+                <a href="#" class="image" title="Apple iPhone Xr">
+                    <img src="{% static '/img/iphone-xsmax.png' %}" class="img-responsive" alt="Apple iPhone Xs Max">
+                </a>
+                <a href="#" class="title">
+                    iPhone Xs Max
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price" style="margin-top: .4em;">
+                        $<span>745</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple" style="font-size: 20px;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search">
+                <a href="#" class="image" title="Apple iPhone Xr">
+                    <img src="{% static '/img/iphone-x.png' %}" class="img-responsive" alt="Apple iPhone X">
+                </a>
+                <a href="#" class="title">
+                    iPhone X
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price" style="margin-top: .4em;">
+                        $<span>485</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple" style="font-size: 20px;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search">
+                <a href="#" class="image" title="Apple iPhone Xr">
+                    <img src="{% static '/img/iphone8.png' %}" class="img-responsive" alt="Apple iPhone 8">
+                </a>
+                <a href="#" class="title">
+                    iPhone 8
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price" style="margin-top: .4em;">
+                        $<span>250</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple" style="font-size: 20px;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search">
+                <a href="#" class="image" title="Apple iPhone Xr">
+                    <img src="{% static '/img/iphone8.png' %}" class="img-responsive" alt="Apple iPhone 8 Plus">
+                </a>
+                <a href="#" class="title">
+                    iPhone 8 Plus
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price" style="margin-top: .4em;">
+                        $<span>405</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple" style="font-size: 20px;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="row" style="margin-bottom: 12px;">
+		<div class="col-xs-12" align="center">
+			<a href="{% url 'iphone'%}" class="btn btn-default" title="Shop all iPhones" style="text-transform: none; border-radius: 5px;">
+				Shop all iPhones <i class="fa fa-arrow-right"></i>
+			</a>
+		</div>
+	</div>
+
+    <!--Macbook--->
+    <div class="row">
+		<div class="col-xs-6">
+			<h2 style="margin-top: 0px; font-weight: bold; font-size: large;">MacBooks</h2>
+		</div>
+		<div class="col-xs-6" align="right">
+			<a href="#" class="btn btn-link" title="Shop used and refurbished MacBooks" style="color: #7e4d7e;">
+				<i class="fa fa-chevron-right" aria-hidden="true" style="color: #7e4d7e;"></i> Shop
+			</a>
+			<a href="#" class="btn btn-link" title="Sell used MacBook" style="color: #7e4d7e;">
+				<i class="fa fa-chevron-right" aria-hidden="true" style="color: #7e4d7e;"></i> Sell
+			</a>
+		</div>
+	</div>
+    <div class="row">
+
+		<div class="col-xs-6 col-sm-3 col-md-2">
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,19 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: [http://127.0.0.1:8000/] Password Reset E-mail
+From: webmaster@localhost
+To: joshdash.ji@gmail.com
+Date: Tue, 14 May 2019 22:24:42 -0000
+Message-ID: <155787268216.19536.10296127994804193867@DESKTOP-M6C6H0F>
+
+Hello from http://127.0.0.1:8000/!
+
+You're receiving this e-mail because you or someone else has requested a password for your user account.
+It can be safely ignored if you did not request a password reset. Click the link below to reset your password.
+
+http://127.0.0.1:8000/accounts/password/reset/key/1-56b-bfb14a25970e885f3114/
+
+Thank you for using http://127.0.0.1:8000/!
+http://127.0.0.1:8000/
+-------------------------------------------------------------------------------

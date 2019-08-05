@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+<style>
+  .a{
+    stroke-width:2;
+    stroke:#73911B;
+  }
+</style>
+  <title>
+    ic_generic_smartphone_med
+  </title>
+  <desc>
+    Copyright 2017 Swappa, LLC
+  </desc>
+  <g fill="none">
+      <rect x="28" y="12" width="40" height="72" rx="4" class="a"/>
+      <rect x="28" y="20" width="40" height="56" class="a"/>
+      <circle cx="48" cy="70" r="2" fill="#73911B"/>
+  </g>
+</svg>

@@ -1,0 +1,398 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load ratings %}
+
+{% block css %}
+<style>
+  .my-swappa-thumbnail {
+    width: 80px;
+  }
+    .my-swappa-menu-item {
+        font-weight: bold;
+    }
+    .my-swappa-menu-subitem {
+        padding-left: 30px;
+    }
+    .list-group-item a {
+        color: #555555;
+    }
+    .list-group-item a.active {
+        color: #009a44;
+        font-weight: bold;
+    }
+    .list-group-item a:hover, a.list-group-item:hover {
+        color: #009a44;
+    }
+    .list-group-item ul {
+        margin-bottom: 0;
+        margin-top: 5px;
+    }
+    .list-group-item li {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+    /* bootstrap overrides */
+    a.list-group-item.active:hover, a.list-group-item.active:focus {
+        background-color: #eceff1;
+        border: 1px solid #eceff1;
+        border-width: 1px 0;
+        box-shadow: none;
+        z-index: 50;
+    }
+    .list-group .list-group-item:hover {
+        background-color: #eceff1;
+        box-shadow: none;
+        z-index: 50;
+    }
+    .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+        border: 1px solid #eceff1;
+        border-width: 1px 0;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<div class="messages"></div>
+
+<section id="section_usp_bar">
+</section>
+
+<section id="breadcrumbs">
+  <div class="row">
+    <div class="col-md-9">
+    </div>
+    <div class="col-md-3" style="margin-bottom: 15px;">
+      <div class="dropdown">
+        <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdown_bpo" data-toggle="dropdown" aria-expanded="true">
+          <i class="fa fa-fw fa-user"></i>
+          My Afia
+          <i class="caret"></i>
+        </button>
+        <ul class="dropdown-menu col-xs-12" role="menu" aria-labelledby="dropdown_bpo">
+          <li role="presentation">
+            <a href="{% url 'afia' %}" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-dashboard"></i> &nbsp;
+              Dashboard
+            </a>
+          </li>
+
+          <li role="presentation" class="divider"></li>
+
+          <li role="presentation" class="dropdown-header">
+            Buying
+          </li>
+
+          <li role="presentation">
+            <a href="#" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-shopping-cart"></i> &nbsp;
+              Purchases
+            </a>
+          </li>
+          <li role="presentation" class="divider"></li>
+
+          <li role="presentation" class="dropdown-header">
+            Selling
+          </li>
+
+          <li role="presentation">
+            <a href="#" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-usd"></i> &nbsp;
+              Sales
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="#" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-list"></i> &nbsp;
+              Listings
+            </a>
+          </li>
+          <li role="presentation">
+          
+          </li>
+          <li role="presentation">
+            <a href="#" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-star"></i> &nbsp;
+              Feature Listings
+            </a>
+          </li>
+
+          <li role="presentation" class="divider"></li>
+
+          <li role="presentation">
+            <a href="#" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-archive"></i> &nbsp;
+              My Archive
+            </a>
+          </li>
+
+          <li role="presentation" class="divider"></li>
+
+          <li role="presentation" class="dropdown-header">
+            Profile
+          </li>
+
+          <li role="presentation">
+            <a href="{% url 'profile' %}" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-user-circle"></i> &nbsp;
+              View Profile »
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="{% url 'me' %}" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-edit"></i> &nbsp;
+              Edit Profile
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="{% url 'account_logout'%}" role="menuitem" tabindex="-1">
+              <i class="fa fa-fw fa-sign-out"></i> &nbsp;
+                Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="section_top">
+  <div class="page-header clearfix">
+    <h1>
+      My Profile
+    </h1>
+
+    <div class="action-buttons">
+      <a class="btn btn-default" href="{% url 'profile' %}">
+        <i class="fa fa-user"></i>
+        View Profile
+      </a>
+
+      <a class="btn btn-info" href="#">
+        <i class="fa fa-paypal"></i>
+        PayPal Settings
+      </a>
+     </div>
+  </div>
+</section>
+
+<section id="section_billboard">
+</section>
+
+<section id="section_main">
+
+  
+  <p class="alert alert-warning">
+    Please provide required profile information.
+  </p>
+  
+
+  <form id="EditProfileForm" method="post" action="" enctype="multipart/form-data" novalidate="novalidate">
+    {% csrf_token %}
+      {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{request.GET.next}}" class="form-control">
+            {% endif %}
+
+      {% if form.non_field_errors %}
+      <div class="alert alert-warning">
+            <ul class="alert-message">
+              {% for error in form.non_field_errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+    <div class="row">
+      <div class="col-sm-3 hidden-xs">
+        <div class="panel panel-default">
+          <div class="list-group">
+              
+              <a href="{% url 'afia'%}" class="list-group-item my-swappa-menu-item active">My Afia</a>
+              <div class="list-group-item">
+                  <a class="my-swappa-menu-item caret-icon" data-toggle="collapse" href="#my-listings" expanded="false">
+                      My Listings
+                      <i class="fa fa-caret-down pull-right"></i>
+                  </a>
+                  <div class="collapse" id="my-listings">
+                      <ul class="list-unstyled">
+                          <li><a href="#" class="my-swappa-menu-subitem">Active</a></li>
+                          <li><a href="#" class="my-swappa-menu-subitem">All</a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="list-group-item">
+                  <a class="my-swappa-menu-item caret-icon" data-toggle="collapse" href="#my-purchases" expanded="false">
+                      My Purchases
+                      <i class="fa fa-caret-down pull-right"></i>
+                  </a>
+                  <div class="collapse" id="my-purchases">
+                      <ul class="list-unstyled">
+                          <li><a href="#" class="my-swappa-menu-subitem">Active</a></li>
+                          <li><a href="#" class="my-swappa-menu-subitem">All</a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="list-group-item">
+                  <a class="my-swappa-menu-item caret-icon" data-toggle="collapse" href="#my-sales" expanded="false">
+                      My Sales
+                      <i class="fa fa-caret-down pull-right"></i>
+                  </a>
+                  <div class="collapse" id="my-sales">
+                      <ul class="list-unstyled">
+                          <li><a href="#" class="my-swappa-menu-subitem">Active</a></li>
+                          <li><a href="#" class="my-swappa-menu-subitem">All</a></li>
+                      </ul>
+                  </div>
+              </div>
+              <a href="#" class="list-group-item my-swappa-menu-item">My Archive</a>
+              <div class="list-group-item">
+                  <a class="my-swappa-menu-item caret-icon" data-toggle="collapse" href="#my-profile" expanded="false">
+                      My Profile
+                      <i class="fa fa-caret-down pull-right"></i>
+                  </a>
+                  <div class="collapse" id="my-profile">
+                      <ul class="list-unstyled">
+                          <li><a href="{% url 'me' %}" class="my-swappa-menu-subitem">Edit Profile</a></li>
+                          <li><a href="{% url 'profile' %}" class="my-swappa-menu-subitem">View Profile</a></li>
+                          <li><a href="#" class="my-swappa-menu-subitem">Payment Settings</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-9 col-md-6">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <i class="fa fa-user"></i>
+            Public Information
+          </div>
+          <div class="panel-body row">
+            <div class="col-xs-12">
+              <div id="field_display_name" class="field form-group required">
+                <label for="id_display_name" class="control-label">Display Name *</label>
+                <p class="help-block">Name displayed to other users. (Public)</p>
+                <div class="controls widget" style="margin-bottom: 0px;">
+                  <input id="id_display_name" name="display_name" value="{{form.display_name.value}}" type="text" class="form-control required">
+                </div>
+                <div class="errors help-block" style="margin: 0px; padding-top: 5px;">{{form.display_name.errors}}</div>
+              </div>
+            </div>
+
+            <div class="col-xs-12">
+              <label for="id_image" class="control-label">Profile Image</label>
+              <p class="help-block">Your profile image is seen by other users.</p>
+            </div>
+            <div class="col-sm-3 text-center">
+              <img src="{% if user.image.url != None %} {{user.image.url}}{% elif user.socialaccount_set.all.0.get_avatar_url %} {{ user.socialaccount_set.all.0.get_avatar_url }} {% else%} {% static '/img/blank-profile.png'%} {% endif %}" height="100" width="100" alt="Profile Image">
+            </div>
+            <div class="col-sm-9">
+              <div class="controls widget" style="margin-top: 5px;">
+                Change: 
+                <input id="id_image" name="image" accept="image/*" type="file" class="form-control"> 
+                <input id="image-clear_id" name="image-clear" type="checkbox"> 
+                <label for="image-clear_id">Clear</label>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <button class="btn btn-primary btn-large" type="submit">Save Profile</button>
+          </div>
+        </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <i class="fa fa-user-secret"></i>
+              Private Information
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div id="field_first_name" class="field form-group required">
+                    <label for="id_first_name" class="control-label">First Name *</label>
+                    
+                    <div class="controls widget" style="margin-bottom: 0px;">
+                      <input id="id_first_name" name="first_name" value="{{form.first_name.value}}" type="text"class="form-control required">
+                    </div>
+                    <div class="errors help-block" style="margin: 0px; padding-top: 5px;">{{form.first_name.errors}}</div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12">
+                  <div id="field_last_name" class="field form-group required">
+                    <label for="id_last_name" class="control-label">Last Name *</label>
+                    
+                    <div class="controls widget" style="margin-bottom: 0px;">
+                      <input id="id_last_name" name="last_name" value="{{form.last_name.value}}" type="text" class="form-control required">
+                    </div>
+                    <div class="errors help-block" style="margin: 0px; padding-top: 5px;">{{form.last_name.errors}}</div>
+                  </div>
+                </div>
+              </div> <!--end row-->
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group field">
+                    <label for="id_email" class="control-label">Email Address</label>
+                    <p class="help-block">We need a valid email address for you to buy or sell a device. We never share this.</p>
+                    <p id="id_email" class="form-control-static box">{{user.email}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button class="btn btn-primary" type="submit">Save Profile</button>
+              <div class="pull-right">
+                <a id="launchPasswordModal" href="{% url 'account_change_password' %}" class="btn btn-default">
+                  <i class="fa fa-key"></i> Change Password
+                </a>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-sm-9 col-md-3 col-sm-offset-3 col-md-offset-0">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <i class="fa fa-globe"></i>
+            Location Information (Public)
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div id="field_country" class="field form-group">
+                  <label for="id_country" class="control-label">Country </label>
+                  <p class="help-block">Your country. (Public)</p>
+                  <div class="controls widget" style="margin-bottom: 0px;">
+                    {{form.country}}
+                  </div>
+                  <div class="errors help-block" style="margin: 0px; padding-top: 5px;"></div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div id="field_location" class="field form-group">
+                  <label for="id_location" class="control-label">Location </label>
+                  
+                  <p class="help-block">Your location: City, State. (Public)</p>
+                  
+                  <div class="controls widget" style="margin-bottom: 0px;">
+                    <input id="id_location" name="location" value="{{form.location.value}}" type="text" class="form-control">
+                  </div>
+                  <div class="errors help-block" style="margin: 0px; padding-top: 5px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <button class="btn btn-primary btn-large" type="submit">Save Profile</button>
+          </div>
+        </div>
+      </div>
+    </div> <!--row-->
+  </form>
+</section>
+
+{% endblock %}

@@ -1,0 +1,935 @@
+{%	extends	"base.html"	%} {%	load	static	%}
+{% block css %}
+    <style type="text/css">
+		.btn-group-vertical > .btn-default {
+			color: inherit;
+			text-align: left;
+			padding:16px;
+			border-color: #eceff1;
+		}
+		.btn-group-vertical > .btn-default.active {
+			color: #D91E18;
+		}
+		.btn-group-vertical > .btn-default.active:not(:hover) {
+			background-color: #ffffff;
+		}
+		.modal-content button.close {
+			font-size:24px;
+		}
+		.flag-modal .btn-link.text-danger {
+			color: #D91E18;
+		}
+		.flag-modal .btn-group-vertical > .btn:before {
+			font-family: FontAwesome;
+			font-weight: normal;
+			font-style: normal;
+			display: inline-block;
+			text-decoration: inherit;
+			content:"\f1db";
+			margin-right:3px;
+		}
+		.flag-modal .btn-group-vertical > .btn.active:before {
+			content:"\f192";
+		}
+		#reason { border-radius: 4px; }
+		#reason.focus {
+			box-shadow: 0 2px 8px #D91E18;
+		}
+
+		.listing_price_active {
+			color: #00851E;
+		}
+		.listing_price_pending, .listing_price_closed {
+			color: #888888;
+		}
+        .btn-share{
+			color: #ffffff;
+			opacity: 1;
+			-webkit-transition: .15s ease-in-out;
+			transition: .15s ease-in-out;
+			border-color: #cfd8dc;
+			text-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+			box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.06);
+			font-size: 14px;
+		}
+		.btn-share:hover, .btn-share:focus{
+			opacity: 0.9;
+			color: #fff;
+		}
+		.si-fb{
+			background: #3b5998;
+		}
+
+		.si-twit{
+			background-color: #24a9ea;
+		}
+		.si-gplus{
+			background-color: #dd4b39;
+		}
+		.input-group .input-group-btn .btn-default {
+			height: 32px;
+			padding-top: 6px;
+			font-weight: 500;
+		}
+		.btn-toolbar .exp-date{
+			float: right;
+		}
+		.exp-date .alert {
+			padding: 5px 15px 5px 15px;
+			margin-bottom: 5px;
+		}
+		@media (max-width: 1024px) {
+			.btn-responsive{
+				margin: 0px 5px 5px 0px;
+			}
+		}
+
+		@media (max-width: 767px) {
+			.btn-toolbar .exp-date{
+				float: none;
+			}
+			.btn-responsive, .exp-date, .title{
+				width: 250px;
+			}
+			.edit a{
+				width: 217px;
+			}
+			.title{
+				margin: 1% 2%;
+			}
+		}
+
+		.listing_attr {
+			margin-bottom: 15px;
+		}
+		.listing_attr > .name {
+			display: inline-block;
+			width: 35%;
+			margin-right: 5px;
+		}
+		.listing_attr > .value {
+			border: solid 1px #eceff1;
+			border-radius: 10px;
+			padding: 5px 10px;
+		}
+
+		.desc_block {
+			margin-left: 5px;
+			margin-bottom: 10px;
+			border-left: 3px solid #eceff1;
+			padding: 8px;
+		}
+		.desc_block > p:last-child {
+			margin-bottom: 0px;
+		}
+
+		hr {
+			margin-bottom: 20px;
+		}
+        #express_shipping_modal ul li {
+            padding: 3px 0px;
+        }
+	</style>
+{% endblock %}
+
+{{ product.device }}
+{%	block	content	%}
+    <div class="messages">
+
+	</div>
+
+	<section id="section_usp_bar">
+
+	</section>
+
+	<section id="breadcrumbs">
+	</section>
+
+    <section id="section_top" style="margin: 20px 0px;">
+
+        <div class="row product-detail">
+            <div class="col-xs-12 col-sm-6">
+                <h1>
+                    {{product.system}}{% if product.device.name == "Apple" %}[{{product.model}}]{%	endif %}
+                    <small>{{ product.device }}</small>
+                    <small></small>
+                </h1>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+
+                <div style="margin-top: 5px;">
+
+                    <div class="speclabel-holder">
+					<span class="speclabel-small speclabel-featured" title="This listing has been featured by the seller or Swappa.">
+						<i class="fa fa-star" aria-hidden="true"></i> Featured
+					</span>
+                    </div>
+
+
+                    <div class="speclabel-holder">
+                        <span class="speclabel-small speclabel-approved" title="This listing has been approved for sale by Swappa.">
+                            <i class="fa fa-check" aria-hidden="true"></i> Approved
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="section_billboard" style="margin-bottom: 10px;">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+
+
+                <div align="center" style="padding: 10px; margin-bottom: 10px;">
+                    <div class="panel-body text-center">
+                        <div class="listing_cover">
+                            <a id="launch_gallery" title="{{ product.device }} {{ product.system }}">
+
+                                <img src="{{ product.system.image.url	}}" alt="{{ product.device }} {{ product.system }} {% if product.device.name == "Apple" %}[{{product.model}}]{%	endif %} - {{ product.color }}, {{ product.storage }}">
+
+                            </a>
+                        </div>
+                        <div>
+                            <!--
+                            <a href="#" class="btn btn-sm btn-link">View price history</a>
+                            -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-4 col-md-push-4 col-lg-4 col-lg-push-4">
+
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="listing_price listing_price_active">
+                            <span class="listing_price_dollar">$</span><span>{{ product.total }}</span>
+                        </div>
+
+                        <div style="height: 16px; font-size: 1.1em; font-weight: 400; text-align: center; margin-top: -5px; margin-bottom: 10px;">
+                            <span>&nbsp;</span>
+                        </div>
+
+                            <a class="buy_now_paypal_btn btn btn-primary btn-block btn-lg" href="/listing/buy/LRST52497" rel="nofollow">
+                                Buy Now
+                            </a>
+
+                                <form action="{% url "cart:cart_add" product.id	%}"	method="post">
+                                    {{ cart_product_form }}
+                                    {% csrf_token	%}
+
+                                    <button type="submit" name="new_comment" class="btn btn-default btn-block" rel="nofollow" style="margin-top: 5px;">
+                                        <i class="fa fa-cart-plus"></i> Add to Cart
+                                    </button>
+
+                                </form>
+
+
+                        <ul style="margin-top: 12px; padding-left: 25px;">
+
+                            <li>
+                                Shipping costs included in price
+                            </li>
+
+                            {% if product.express_shipping == True %}
+                            <li>Express shipping available for $25</li>
+                            {% endif %}
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-4 col-md-pull-4 col-lg-4 col-lg-pull-4">
+
+                <div class="panel panel-default">
+
+                    <div class="profile_preview">
+
+                        <!-- This row/col layout is primary for tablet layout. -->
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4 col-md-12">
+
+                                <div class="seller_tags">
+
+
+                                    <span class="seller_tag _paypal">
+                                        <i class="fa fa-paypal" aria-hidden="true"></i>
+                                        Protected
+                                    </span>
+
+                                </div>
+
+                                <div class="seller_image">
+                                    <div style="width: 50px; margin: 0 auto; position: relative;">
+
+                                            <img src="{% if product %}{{ product.user.image.url }}{% elif product.user.socialaccount_set.all.0.get_avatar_url%}{{ product.user.socialaccount_set.all.0.get_avatar_url }}{% else%}{% static '/img/blank-profile.png'%}{% endif %}" alt="{% if product.display_name != none %}{{ product.display_name }}{% else%}{{ product.user.get_full_name }}{% endif %}" height="50" width="50">
+
+
+                                    </div>
+                                </div>
+
+                                <div class="seller_name">
+                                    <a href="{% url 'profile' %}">{{ product.user.display_name }}</a>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-12">
+
+                                <div class="well">
+                                    <ul style="font-size: 0.9em;">
+
+                                        <li>
+                                            Ships from
+                                            <strong class="seller_location">
+                                                {{ product.shipping_location }}
+                                            </strong>
+                                        </li>
+                                        <li>
+                                            Member for {{ product.user.date_joined }}
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-12">
+
+                                <table class="seller_stars table table-condensed table-borderless" style="margin-bottom: 0px;">
+                                    <tbody><tr>
+                                        <td width="50%">
+                                            Afia
+                                        </td>
+
+                                        <td>
+                                            <span id="stars-swappa" class="stars" data-value="0.0" title=" "><i class="fa fa-fw fa-star" title="" data-score="1"></i><i class="fa fa-fw fa-star" title="" data-score="2"></i><i class="fa fa-fw fa-star" title="" data-score="3"></i><i class="fa fa-fw fa-star" title="" data-score="4"></i><i class="fa fa-fw fa-star-half-o" title="" data-score="5"></i><input type="hidden" name="score" value="4.5" readonly="readonly"></span>
+                                            <sup>0</sup>
+                                        </td>
+
+                                    </tr>
+
+
+
+
+                                    <tr>
+                                        <td>
+                                            Listings
+                                        </td>
+                                        <td>
+                                            {{ socount }} sold,
+                                            {{ count }} active
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div align="center" style="margin: -10px 0px 10px 0px;">
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#flag_listing_modal" class="flag-listing text-danger small">
+                        <i class="fa fa-flag"></i> Flag Listing
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <section id="section_pictures" style="margin-bottom: 10px;">
+
+        <div id="gallery_images" class="row">
+
+            {% if image.product.code == product.code %}
+                {% for image in images%}
+                <div class="col-xs-6 col-sm-2 col-md-2">
+                    <div class="img-container" style="margin-bottom: 15px;">
+
+                        <a href="{{ image.image.url }}" class="lightbox">
+                            <img class="img-responsive" src="{{ image.image.url }}" alt="Listing Image" style="margin:0px 0px 0px 0px; ">
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+
+
+        <div class="well hidden-xs">
+
+            <p>
+                Ask the seller if there is a picture you want them to upload. Most sellers will be happy to provide more photos to get their listing sold.
+            </p>
+
+        </div>
+
+        <hr>
+
+    </section>
+
+    <section id="section_summary">
+
+        <div class="row">
+
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                <a target="_blank" class="pull-right">
+                    Product info
+                </a>
+                <h3 style="margin-top: 0px;">Specs</h3>
+            </div>
+
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
+
+                <div class="row">
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                        <div class="listing_attr">
+                            <span class="name">Platform</span>
+                            {% if product.device.name == "Apple" %}
+                            <span class="value speclabel-platform">
+                                ios
+                            </span>
+                            {% else%}
+                            <span class="value speclabel-platform">
+                                {{ product.device }}
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                        <div class="listing_attr">
+                            <span class="name">Color</span>
+                            <span class="value">
+                                {{ product.color }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                        <div class="listing_attr">
+                            <span class="name">Storage</span>
+                            <span class="value">
+                                {{ product.storage }}
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+                <div>
+                    <h3 style="margin-top: 0px; float: left; margin-right: 5px;">Condition</h3>
+                    <span class="speclabel">{{ product.condition }}</span>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    {% if product.condition == "Mint" %}
+                    <ul style="padding-left: 20px;">
+
+                        <li>Pristine condition, no signs of wear and tear</li>
+
+                        <li>Power cord/charger optional</li>
+
+                        <li>Retail packaging and manuals optional</li>
+
+                    </ul>
+                    {% elif product.condition == "Good" %}
+                    <ul style="padding-left: 20px;">
+
+                        <li>Excellent condition, minor wear and tear</li>
+
+                        <li>Power cord/charger optional</li>
+
+                        <li>Retail packaging and manuals optional</li>
+
+                    </ul>
+                    {% elif product.condition == "Fair" %}
+                    <ul style="padding-left: 20px;">
+
+                        <li>Noticeable wear and tear</li>
+
+                        <li>Power cord/charger optional</li>
+
+                        <li>Retail packaging and manuals optional</li>
+
+                    </ul>
+                    {% elif product.condition == "New" %}
+                    <ul style="padding-left: 20px;">
+
+                        <li>• Unopened retail packaging (if sealed)</li>
+
+                        <li>• Never used (if not sealed from the factory)</li>
+
+                    </ul>
+                    {% endif%}
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-md-8">
+
+                <h3 style="margin-top: 0px;">{{ product.system }} {{ product.storage }} {{ product.color }} {{ product.model }} </h3>
+
+                    <div class="desc_block">
+                        <p>This Device is Factory Unlocked  </p>
+
+                        <p> {{ product.description }} </p>
+
+                    </div>
+
+                <p>
+                    <i class="fa fa-info-circle"></i>
+                    All devices must be fully functional and meet our <a href="#" target="_blank" style="font-weight: bold;">criteria for sale</a>.
+                </p>
+
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-3">
+                <h3 style="margin-top: 0px;">Stats</h3>
+            </div>
+            <div class="col-xs-12 col-md-9">
+
+
+                <div class="row">
+                    <div class="col-xs-6 col-md-3">
+                        <div class="listing_attr">
+                            <span class="name">Listed</span>
+                            <span class="value">
+                                {{ product.date }} <!--5:27 p.m.-->
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <div class="listing_attr">
+                            <span class="name">Listed</span>
+                            <span class="value">
+                                {{ product.date }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <div class="listing_attr">
+                            <span class="name">Views</span>
+                            <span class="value">
+                                none
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <div class="listing_attr">
+                            <span class="name" style="width: 45%;">Quantity</span>
+                            <span class="value">
+                                1
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <hr>
+
+    </section>
+
+    <section id="section_shipping">
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="row">
+                    <div class="col-xs-7 col-md-6">
+                        <h2>Shipping &amp; handling</h2>
+                    </div>
+                    <div class="col-xs-5 col-md-6" align="right" style="padding-top: 9px;">
+                        <a href="#" target="policies">Shipping Policies</a>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-bottom: 16px;">
+                    <div class="col-sm-6">
+                        <p>
+                            Ships from
+                            <span style="font-weight: bold;">
+                                {{ product.shipping_loctaion }}
+                            </span>
+                        </p>
+                        <ul style="padding-left: 20px;">
+                            <li>
+                                Shipping costs included in price
+                            </li>
+                            <li>
+                                <b>Seller not required to ship internationally</b>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Standard Shipping:</p>
+                        <ul style="padding-left: 20px;">
+                            <li>
+                                Ships in 2 days or less
+                            </li>
+                            <li>
+                                Shipped with tracking and insurance
+                            </li>
+                            <!--
+                            <li>
+                                Method: Standard
+                            </li>
+                            -->
+                            {% if product.express_shipping == True %}
+                            <li>
+                                <a href="javascript:showExpressShippingModal();" title="More info on express shipping">
+                                    Express Shipping
+                                </a> available at checkout
+                            </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            {% if product.express_shipping == True %}
+            <div class="col-md-4">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bolt" style="color: #f76808;"></i>
+                        Express Shipping Available for <sup>$</sup>25
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Express Shipping option offers faster shipping and handling for an additional cost
+                            determined by the seller.
+                        </p>
+                        <p>
+                            Select Express Shipping at checkout to get the item faster.
+                            <a href="javascript:showExpressShippingModal();" title="More info on express shipping">More information</a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            {% endif %}
+
+
+        <div class="modal fade" id="express_shipping_modal" tabindex="-1" role="dialog" aria-labelledby="express_shipping_info">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title">
+                            <i class="fa fa-bolt" aria-hidden="true"></i> Express Shipping Requirements
+                        </h4>
+                    </div>
+
+                    <div class="modal-body" style="">
+                        <p class="alert alert-success">
+                            Express Shipping option offers faster shipping and handling for an additional cost.
+                        </p>
+                        <ul>
+                            <li>
+                                Seller will ship product same or next shipping day (including Saturday)
+                            </li>
+                            <li>
+                                Seller determines the flat price of the express shipping option
+                            </li>
+                            <li>
+                                The additional price listed is non-negotiable after sale has occurred
+                            </li>
+                            <li>
+                                Seller will ship using one of the following expedited services:
+                                <ul>
+                                    <li>
+                                        DHL: Priority Express
+                                    </li>
+                                    <li>
+                                        UPS: Next Day Air Saver
+                                    </li>
+                                    <li>
+                                        FedEx: Standard Overnight
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                Only available to buyers in the Lagos states
+                            </li>
+                            <li>
+                                <a href="#" target="_blank">
+                                    Express Shipping requirements details
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a id="express_shipping_ok_btn" class="btn btn-default" data-dismiss="modal">OK</a>
+                        <a id="express_shipping_no_btn" class="btn btn-default" data-dismiss="modal">No Thanks</a>
+                        <a id="express_shipping_yes_btn" class="btn btn-primary" data-dismiss="modal">
+                            Yes, Express Shipping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+        <hr>
+
+    </section>
+
+    <section id="section_returns">
+
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+
+                <div class="row">
+                    <div class="col-md-6 col-xs-6">
+                        <h2>Returns &amp; refunds</h2>
+                    </div>
+                    <div class="col-md-6 col-xs-6" align="right" style="padding-top: 9px;">
+                        <a href="#" target="policies">Refund Policies</a>
+                    </div>
+                </div>
+
+                <div>
+                    <ul style="padding-left: 20px;">
+                        <li>
+                            Eligible for
+                            <a href="#" target="_blank" rel="nofollow">
+                                Online Purchase Protection</a>, so you get what you paid for
+                        </li>
+                        <li>
+                            Items received not as described shall be returned to the seller for a prompt refund
+                        </li>
+                    </ul>
+                </div>
+
+
+
+            </div>
+            <div class="col-xs-12 col-md-4">
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="well">
+                            <p>
+                                All seller return policies are based on the pre-condition that the device is received as advertised and
+                                <a href="#" target="_blank">in accordance with Afia policies</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <hr>
+
+	<section id="section_comments">
+
+		<div class="row">
+			<div class="col-xs-12 col-md-8 col-lg-8">
+                <div class="row">
+					<div class="col-xs-8">
+						<h2>Comments &nbsp;<span class="badge">{{ com }}</span></h2>
+					</div>
+					<div class="col-xs-4">
+
+							<!--<a href="/listing/subscribe/LRST52497" class="btn btn-default pull-right">
+								<i class="fa fa-bell-o" aria-hidden="true"></i> Subscribe
+							</a>-->
+
+					</div>
+				</div>
+
+                <div class="panel">
+                    {% for comment in comments %}
+                        {% if comment.product.code == product.code %}
+                        <div class="panel-body" style="border-bottom: 1px solid #eceff1;">
+                            <div class="media">
+                                <div class="pull-left">
+                                    <a class="pull-left" href="" rel="nofollow">
+                                        <img class="circle_image" src="{% if comment.user.image.url != None %} {{comment.user.image.url}}{% elif comment.user.socialaccount_set.all.0.get_avatar_url %} {{ comment.user.socialaccount_set.all.0.get_avatar_url }} {% else%} {% static '/img/blank-profile.png'%} {% endif %}" alt="{{ comment.user.display_name }}" height="40" width="40">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+
+                                    <div class="pull-right">
+
+                                        <a href="#" class="report-comment text-danger small" data-toggle="modal" data-target="#flag_comment_modal" data-uuid="e5bf17a3-6d07-4199-99fb-bf12b2e596c7">
+                                            <i class="fa fa-flag"></i>
+                                        </a>
+
+                                    </div>
+
+                                    <div style="padding: 3px 0;">
+                                        <a href="">{{ comment.user.display_name }}.
+                                            {% if comment.user == product.user %}
+                                            <span class="label label-seller">seller</span>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+
+                                    <div style="font-size: 0.9em;">
+
+                                        <span>
+                                            {{ comment.created }}
+                                        </span>
+
+                                    </div>
+                                    <hr>
+                                    <div style="padding: 0;">
+                                        <p>{{ comment.body }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% if user.is_authenticated %}
+                <div class="panel">
+                    <div class="panel-heading">
+                        <a href="#" target="policies" style="font-weight: normal;" class="pull-right">What’s not appropriate?</a>
+                            Post comment
+                    </div>
+                    <div class="panel-body">
+                        <form id="CommentForm" method="post" action="">
+                            {% csrf_token %}
+                            {% if request.GET.next %}
+                            <input type="hidden" name="next" value="{{request.GET.next}}" class="form-control">
+                            {% endif %}
+
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger" role="alert">
+                                  {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                  {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-group">
+                                <textarea cols="40" id="id_body" maxlength="1000" name="body" placeholder="Post a new comment..." rows="2" class="form-control"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="submit" name="new_comment" class="btn btn-primary btn-block">
+                                        Post comment
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                <div class="well">
+                    <a href="{% url 'account_login' %}">Login</a>
+                    to comment
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-xs-12 col-md-4 col-lg-4">
+
+				<div class="well">
+					<p>
+						 Comments on this page are public and visible to everyone.
+					</p>
+					<p>
+						After purchasing, you’ll gain access to a private page where you and the seller can communicate and track your item’s shipment.
+					</p>
+				</div>
+
+			</div>
+        </div>
+    </section>
+
+
+{%	endblock %}
+<div	class="product-detail">				<img	src="{%	if	product.image	%}{{ product.image.url	}}{%	else	%}				{%	static	"img/iphone-xr.png"	%}{%	endif	%}">				<h1>{{product.system}}</h1>				<h2><a	href="{{product.system.get_absolute_url	}}">{{ product.type	}}</a></h2>				<p	class="price">${{ product.price	}}</p>				{{ product.description|linebreaks	}}		</div>
+{% block js %}
+
+<script type="text/javascript">
+		$(function() {
+			$("#gallery_images").lightGallery({
+				selector:"a.lightbox",
+				download:false,
+				speed:400
+			});
+			/* launch listing gallery from product image */
+			$('#launch_gallery').click(function(){
+				$('a.lightbox:first').trigger('click');
+			});
+
+			// detect screen size
+			if ($(window).width() < 768) {
+				$("#social_toolbar ").removeClass("btn-social");
+			}
+		});
+</script>
+
+    <script type="text/javascript">
+		function copyShareUrl(){
+			var copyText = document.getElementById("shareUrlInput");
+			copyText.select();
+			document.execCommand("Copy");
+			console.log("Copied the text: " + copyText.value);
+		}
+		/* load listing view with share modal triggered if ?share is passed as a URL parameter */
+		$(document).ready(function(){
+			var url = window.location.href,
+				urlInfo = url.split('?'),
+				urlParam = urlInfo[1];
+
+		});
+	</script>
+
+    <script>
+        function showExpressShippingModal(yes_callback, no_callback) {
+            // show modal
+            $("#express_shipping_modal").modal('show');
+            // button handlers
+            if (yes_callback) {
+                $("#express_shipping_yes_btn").unbind().click(yes_callback);
+                $("#express_shipping_ok_btn").hide();
+            } else {
+                $("#express_shipping_ok_btn").show();
+                $("#express_shipping_yes_btn").hide();
+                $("#express_shipping_no_btn").hide();
+            }
+            if (no_callback) {
+                $("#express_shipping_no_btn").unbind().click(no_callback);
+            }
+        }
+    </script>
+
+{% endblock %}

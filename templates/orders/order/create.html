@@ -1,0 +1,621 @@
+{%	extends	"base.html"	%}
+
+{% load static %}
+
+{%	block css %}
+
+    <style>
+		#top_checkout {
+			color: #aaaaaa;
+			font-weight: bold;
+		}
+
+		@media (max-width: 767px) {
+			body {
+				padding-top: 70px;
+			}
+		}
+        .addon_accessory {
+			border: 2px solid #cecece;
+		}
+		.addon_accessory hr {
+			border-color: #cecece;
+		}
+		.addon_accessory .more_info_corner {
+			color: #ffffff;
+			background-color: #cecece;
+			display: none;
+		}
+		.addon_accessory .checkbox .fa-arrow-right {
+			color: #cecece;
+		}
+        #zoid-paypal-button-768ea53f16 {
+            font-size: 0;
+            width: 100%;
+            overflow: hidden;
+            min-width: 200px;
+        }
+        #zoid-paypal-button-768ea53f16.paypal-button-size-responsive {
+            text-align: center;
+        }
+        #zoid-paypal-button-768ea53f16 > .zoid-outlet {
+            display: inline-block;
+            min-width: 200px;
+            max-width: 750px;
+            position: relative;
+        }
+        #zoid-paypal-button-768ea53f16.paypal-button-layout-vertical > .zoid-outlet {
+            min-width: 200px;
+        }
+        #zoid-paypal-button-768ea53f16 > .zoid-outlet {
+            width:  150px;
+            height: 25px;
+        }
+        #zoid-paypal-button-768ea53f16.paypal-button-size-responsive > .zoid-outlet {
+            width: 100%;
+        }
+        #zoid-paypal-button-768ea53f16 > .zoid-outlet > iframe {
+            min-width: 100%;
+            max-width: 100%;
+            width: 200px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #zoid-paypal-button-768ea53f16 > .zoid-outlet > iframe.zoid-component-frame {
+            z-index: 100;
+        }
+        #zoid-paypal-button-768ea53f16 > .zoid-outlet > iframe.zoid-prerender-frame {
+            transition: opacity .2s linear;
+            z-index: 200;
+        }
+        #zoid-paypal-button-768ea53f16 > .zoid-outlet > iframe.zoid-visible {
+            opacity: 1;
+        }
+        #zoid-paypal-button-768ea53f16 > .zoid-outlet > iframe.zoid-invisible {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .v-modal-mask {
+		position: fixed;
+		z-index: 9998;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, .5);
+		display: table;
+		transition: opacity .3s ease;
+	}
+	.v-modal-wrapper {
+		display: table-cell;
+		vertical-align: middle;
+	}
+	.v-modal-container {
+		width: 300px;
+		margin: 0 auto;
+		padding: 10px;
+		background-color: #fff;
+		border-radius: 2px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+		transition: all .3s ease;
+		font-family: Helvetica, Arial, sans-serif;
+	}
+	</style>
+
+{% endblock %}
+
+{%	block content %}
+
+    <div class="messages">
+
+	</div>
+
+	<section id="section_usp_bar">
+
+	</section>
+
+	<section id="breadcrumbs" style="display: none;">
+
+	</section>
+
+    <section id="section_billboard">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-9" style="margin-bottom: 40px;">
+                <form action="." method="post" class="form-inline" role="form" style="margin-bottom: 0px;">
+                    {% csrf_token %}
+                    {%	for	item in cart	%}
+                        {% with product=item.product %}
+                        <div class="buy_listing_summary" style="">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-3 text-center">
+
+                                    <a href="{{ product.get_absolute_url }}" title="Back to listing">
+                                        <img class="img-responsive" src="{{ product.system.image.url }}" style="max-height: 155px; display: inline-block;" alt="{{ product.device }} {{ product.system }} [{{ product.model }}] - {{ product.color }}, {{ product.storage }}">
+                                    </a>
+
+                                </div>
+                                <div class="col-xs-8 col-sm-9">
+
+                                    <h2 class="product_title">{{ product.system }}</h2>
+
+                                    <ul class="list-inline">
+
+                                        <li>
+                                            • {{ product.device }}
+                                        </li>
+
+                                        • {{ product.model }}
+
+                                        <li>
+                                            • {{ product.color }}
+                                        </li>
+
+                                        <li>
+                                            • {{ product.storage }}
+                                        </li>
+
+                                        <li>
+                                            • {{ product.condition }} condition
+                                        </li>
+                                    </ul>
+
+                                    <div class="media-object align_left_or_center">
+                                        <div class="media-left pull-left seller_image" style="margin-right: 10px;">
+
+                                            <img class="circle_image" src="{% if product %}{{ product.user.image.url }}{% elif product.user.socialaccount_set.all.0.get_avatar_url%}{{ product.user.socialaccount_set.all.0.get_avatar_url }}{% else%}{% static '/img/blank-profile.png'%}{% endif %}" alt="{% if product.display_name != none %}{{ product.display_name }}{% else%}{{ product.user.first_name }}{% endif %}." height="35" width="35">
+
+                                        </div>
+                                        <div class="media-body" align="left" style="font-size: 14px;">
+                                            <div>
+                                                Sold by: <span style="font-weight: bold;">{% if product.display_name != none %}{{ product.display_name }}{% else%}{{ product.user.first_name }}{% endif %}.</span>
+                                                <span style="font-size: 12px;"></span>
+                                            </div>
+
+                                            <span style="font-size: 12px;">
+                                                {{ product.shipping_location }}
+                                            </span>
+
+                                            <span class="stars_area">
+
+                                                <span id="stars-swappa" class="stars" data-value="5.0" title="gorgeous"><i class="fa fa-fw fa-star" title="gorgeous" data-score="1"></i><i class="fa fa-fw fa-star" title="gorgeous" data-score="2"></i><i class="fa fa-fw fa-star" title="gorgeous" data-score="3"></i><i class="fa fa-fw fa-star" title="gorgeous" data-score="4"></i><i class="fa fa-fw fa-star" title="gorgeous" data-score="5"></i><input type="hidden" name="score" value="5" readonly="readonly"></span>
+                                                <sup>2</sup>
+
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <h2>
+                                        ${{ item.total_price }}
+                                        <small>with Free Shipping </small>
+                                    </h2>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endwith %}
+
+                        <div class="addon_block addon_warranty" style="position: relative;">
+                            <div class="" style="">
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#warranty-modal" class="full_link" title="Protection Plans for used phones">
+                                    <div class="more_info_corner">
+                                        More Info
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-3" align="center">
+                                            <i class="fa fa-shield hidden-xs" style="font-size: 100px; color: #f4a636;"></i>
+                                            <i class="fa fa-shield visible-xs" style="font-size: 25px; color: #f4a636;"></i>
+                                        </div>
+                                        <div class="col-xs-8 col-sm-9" align="left">
+                                            <h3 style="margin-bottom: 2px;">
+                                                <span class="hidden-xs">Accidental</span> Protection Plan
+                                                <small class="hidden-xs">for Used Phone</small>
+                                            </h3>
+                                            <p>Can only be purchased now at time of sale!</p>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-9" align="left">
+                                            <ul class="fa-ul" style="margin-bottom: 0px; font-size: 13px;">
+                                                <li>
+                                                    <i class="fa-li fa fa-check"></i>
+                                                    Pays for repairs, including parts and labor
+                                                </li>
+                                                <li>
+                                                    <i class="fa-li fa fa-check"></i>
+                                                    Fixes screens, water damage, power surges
+                                                </li>
+                                                <li>
+                                                    <i class="fa-li fa fa-check"></i>
+                                                    One year protection up to the full value of device
+                                                </li>
+                                                <li>
+                                                    <i class="fa-li fa fa-check"></i>
+                                                    Reasonable $50 deductible, Refundable for 30 days
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <hr>
+                            <div class="checkbox" style="margin-bottom: 0px;">
+                                <i class="fa fa-arrow-right" style="color: #f4a636;"></i>&nbsp;
+                                <label style="font-size: 110%;">
+                                    <input type="checkbox" id="id_protection" name="protection" value="1" style="transform: scale(1.25);">
+                                    Add Protection Plan for $70
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="well">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-8 col-md-offset-2 text-center">
+                                    <h2 style="font-size: 28px; margin: 0px 0px 5px 0px;">
+                                        <small>Total</small> <sup>$</sup><span id="total_price">{{ cart.get_total_price }}</span>
+                                    </h2>
+
+                                    <div id="pp-checkoutjs-pay-btn">
+                                        <div class="paypal-button paypal-button-context-iframe paypal-button-label-paypal paypal-button-size-responsive paypal-button-layout-vertical" style="height: 201px;">
+                                            <button type="submit" class="btn btn-primary btn-block">
+                                            Place Order
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                 </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                        <div class="row row-centered">
+                        {%	for	item in cart	%}
+                            {% with product=item.product %}
+                            <div class="col-xs-12 col-md-6 col-centered">
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        Payment Breakdown
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-10">Payment to Seller</div>
+                                            <div class="col-xs-2 text-right">
+                                                <sup>$</sup><span class="price_label">{{ product.price }}</span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-xs-10">Afia Sale Fee</div>
+                                            <div class="col-xs-2 text-right">
+
+                                                <sup>$</sup><span class="fee_label">{{ product.fee }}</span>
+
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-xs-10">Shipping Costs</div>
+                                            <div class="col-xs-2 text-right">
+                                                <span id="shipping_label">FREE</span>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <span class="breakdown-warranty">No </span>
+                                                Protection Plan
+                                            </div>
+                                            <div class="col-xs-2 text-right">
+                                                <span class="breakdown-warranty"><sup>$</sup>0</span>
+                                                <span class="breakdown-warranty hidden"><sup>$</sup>70</span>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <span id="accessories-negation">No </span>
+                                                Accessories
+                                            </div>
+                                            <div class="col-xs-2 text-right">
+                                                <span class="breakdown-accessory price"><sup>$</sup>0</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endwith %}
+                        {% endfor %}
+                        </div>
+                <div id="change-address" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title">
+                                    <i class="fa fa-address-card" aria-hidden="true"></i> Change Shipping Address
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div id="variant_fields">
+                                    <div class="row">
+
+                                        <div class="col-sm-6">
+                                            <div id="field_firs_name" class="form-group">
+                                                <label for="id_first_name" class="control-label requiredField {% if form.first_name.errors %}text-danger{% endif %}">
+                                                 First Name<span class="asteriskField">*</span>
+                                                </label>
+                                                <div class="controls widget" style="margin-bottom: 0px;">
+                                                  <input id="id_first_name" name="first_name" value="" type="text"class="form-control required">
+                                                </div>
+                                                <div class="errors help-block" style="margin: 0px; padding-top: 5px;">{{form.first_name.errors}}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div id="field_las_name" class="form-group">
+                                                <label for="id_last_name" class="control-label requiredField {% if form.last_name.errors %}text-danger{% endif %}">
+                                                 Last Name<span class="asteriskField">*</span>
+                                                </label>
+                                                <div class="controls widget" style="margin-bottom: 0px;">
+                                                  <input id="id_last_name" name="last_name" value="" type="text"class="form-control required">
+                                                </div>
+                                                <div class="errors help-block" style="margin: 0px; padding-top: 5px;">{{form.last_name.errors}}</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-6">
+                                            <div id="field_emails" class="form-group">
+                                                <label for="id_email" class="control-label requiredField {% if form.email.errors %}text-danger{% endif %}">
+                                                 Email<span class="asteriskField">*</span>
+                                                </label>
+                                                <div class="controls widget" style="margin-bottom: 0px;">
+                                                  <input id="id_email" name="email" value="" type="email"class="form-control required">
+                                                </div>
+                                                <div class="errors help-block" style="margin: 0px; padding-top: 5px;">{{form.email.errors}}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div id="field_address" class="form-group">
+                                                <label for="id_address" class="control-label requiredField {% if form.address.errors %}text-danger{% endif %}">
+                                                 Address<span class="asteriskField">*</span>
+                                                </label>
+                                                <div class="controls widget" style="margin-bottom: 0px;">
+                                                  <input id="id_address" name="address" value="" type="text" maxlength="250" class="form-control required">
+                                                </div>
+                                                <div class="errors help-block" style="margin: 0px; padding-top: 5px;">{{form.address.errors}}</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-6">
+                                            <div id="field_city" class="form-group">
+                                                <label for="id_city" class="control-label requiredField {% if form.city.errors %}text-danger{% endif %}">
+                                                 City<span class="asteriskField">*</span>
+                                                </label>
+                                                <div class="controls widget" style="margin-bottom: 0px;">
+                                                  <input id="id_city" name="city" value="" type="text"class="form-control required">
+                                                </div>
+                                                <div class="errors help-block" style="margin: 0px; padding-top: 5px;">{{form.city.errors}}</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+
+            {%	for	item in cart	%}
+                {% with product=item.product %}
+            <div class="col-xs-12 col-sm-3">
+                <div class="panel panel-success" style="margin: 0px auto 15px auto;">
+                    <div class="panel-heading">
+                        Billing Address
+                    </div>
+                    <div class="panel-body">
+
+                        <a href="javascript:void(1);" data-toggle="modal" data-target="#change-address" class="full_link" title="Change Address">
+                            <div class="more_info_corner text-right">
+                                Change Address
+                            </div>
+                        </a>
+                        <div class="row" style="margin-top: 3px;">
+                            <div>Name:
+                                <span class="text-uppercase" id="myname">{{ user.first_name }}</span>
+                                <span class="text-uppercase" id="mylast"> {{ user.last_name }}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>Email:
+                                <span class="text-uppercase" id="mail">{{ user.email }}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>Address:
+                                <span class="text-uppercase" id="add">{{ user.location }},</span>
+                                <span class="text-uppercase" id="city"> {{ user.country }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                {% endwith %}
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+
+{% endblock %}
+
+{%	block js %}
+
+    <script type="text/javascript">
+
+		function checkAddWarranty(checked) {
+			$("#warranty-modal").modal("hide");
+			if (checked != $("#check_warranty_toggle").is(":checked")) {
+				$("#check_warranty_toggle").prop("checked", checked).trigger("change");
+			}
+		}
+
+		$("#id_first_name").keyup(function(){
+
+		    var x = document.getElementById('myname').innerHTML;
+
+	        if (x == "") {
+                document.getElementById('myname').innerHTML = "{{ user.first_name }}";
+            }
+            else {
+                $("#myname").html($(this).val());
+            }
+
+        });
+
+		$("#id_last_name").keyup(function(){
+
+		    var x = document.getElementById('mylast').innerHTML;
+
+	        if ( x == "") {
+                document.getElementById('mylast').innerHTML = " {{ user.last_name }}";
+            }
+            else {
+                $("#mylast").html($(this).val());
+            }
+
+        });
+
+		$("#id_email").keyup(function(){
+
+		    var x = document.getElementById('mail').innerHTML;
+
+	        if (x == "") {
+                document.getElementById('mail').innerHTML = "{{ user.email }}";
+            }
+            else {
+                $("#mail").html($(this).val());
+            }
+
+        });
+
+		$("#id_city").keyup(function(){
+
+		    var x = document.getElementById('city').innerHTML;
+
+	        if (x == "") {
+                document.getElementById('city').innerHTML = "{{ user.location }}";
+            }
+            else {
+                $("#city").html($(this).val());
+            }
+
+        });
+
+		$("#id_address").keyup(function(){
+
+		    var x = document.getElementById('add').innerHTML;
+
+	        if (x == "") {
+                document.getElementById('add').innerHTML = "{{ user.location }}";
+            }
+            else {
+                $("#add").html($(this).val());
+            }
+
+        });
+
+	</script>
+
+
+	<div id="warranty-modal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					<h4 class="modal-title">
+						<i class="fa fa-shield" aria-hidden="true"></i> Accidental Protection Plan for Used Phones
+					</h4>
+				</div>
+				<div class="modal-body">
+
+					<div style="margin-top: -10px; margin-bottom: 30px;" align="center">
+						<img src="https://static.swappa.com/static/images/warranty/warranty_life_logo.png" class="img-responsive" style="max-height: 80px;">
+						<p style="margin-top: 5px; font-size: 12px;">
+							Sold by Swappa. Serviced by WarrantyLife.
+						</p>
+					</div>
+
+					<p class="alert alert-warning" style="font-size: 90%; font-weight: 400; text-align: center;">
+						Protection Plan must be purchased now at time of sale. It cannot be purchased later.
+					</p>
+
+					<p style="padding: 10px;">
+						The Accidental Protection Plan provides <b>protection from mishaps</b> like drops, broken screens,
+						spills, water damage, and power surges.
+						It <strong>pays for repair costs</strong>, including parts and labor, up to the value of your device.
+					</p>
+
+					<ul class="list-inline" style="text-align: center; font-weight: 500;">
+						<li>• 1 year coverage</li>
+						<li>• $50 deductible</li>
+						<li>• Refundable for 30 days</li>
+						<li>•
+
+								<a href="/protection-plans" target="more_info">
+									More Info, Terms <i class="fa fa-external-link"></i>
+								</a>
+
+						</li>
+					</ul>
+
+				</div>
+				<div class="modal-footer">
+					<a href="javascript:checkAddWarranty(false);" class="btn btn-default">Skip Protection</a>
+					<a href="javascript:checkAddWarranty(true);" class="btn btn-primary">Add Protection Plan</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
+
+<h1>Checkout</h1>
+		<div	class="order-info">
+            <h3>Your	order</h3>
+            <ul>
+                {%	for	item in cart	%}
+                    <li>
+                        {{ item.quantity }} x {{ item.product.name }}
+                        <span>${{ item.total_price }}</span>
+                    </li>
+                {%	endfor	%}
+            </ul>
+
+            <p>Total:	${{ cart.get_total_price }}</p>
+        </div>
+
+		<form	action="."	method="post"	class="order-form">
+            {{ form.as_p }}
+            <p><input	type="submit"	value="Place order"></p>
+            {%	csrf_token	%}
+        </form>
+
+

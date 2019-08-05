@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+<style>
+  .a{
+    stroke-width:2;
+    stroke:#73911B;
+  }
+</style>
+  <title>
+    ic_generic_laptop_med
+  </title>
+  <desc>
+    Copyright 2017 Swappa, LLC
+  </desc>
+  <g fill="none">
+      <path d="M12 23C12 21.9 12.9 21 14 21L82 21C83.1 21 84 21.9 84 23L84 69 12 69 12 23Z" class="a"/>
+      <rect x="14" y="23" width="68" height="44" class="a"/>
+      <polygon points="4 69 92 69 90 75 6 75" class="a"/>
+      <rect x="39" y="68" width="16" height="4" fill="#73911B"/>
+  </g>
+</svg>

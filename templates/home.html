@@ -1,0 +1,586 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<style>
+#wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rise {
+    transition: box-shadow .3s;
+    width: 17rem;
+    height: 24rem;
+    border-radius: 5px;
+    border: 0.8px solid #ccc;
+    background: #fff;
+    position: relative;
+}
+.rise:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+div{
+    display: block;
+}
+.box{
+    margin-bottom: 10px;
+    text-align: center;
+}
+.box img{
+    transition: box-shadow .3s;
+    max-height: 200px;
+    margin: auto auto;
+    border-radius: 4px;
+    padding: 5px;
+    background: #fff;
+}
+.box img:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+.content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding:0 0 10px 10px;
+    color: #7e4d7e;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section id="section_top">
+    <h1 class="text-center text-dark" style="margin: 20px 0px; font-size: 27px;">Buy and sell new
+        <span class="font-weight-light" style="margin-left: -10px; font-style: italic;">ish</span>
+         tech
+        <br>
+        <small class="grey-text font-weight-light" style="font-size: 14px;">Safe, friendly marketplace with less fees</small>
+    </h1>
+</section>
+
+<section id="section_billboard">
+
+</section>
+
+<section style="margin-top: 18px;">
+    <div class="row" style="margin-top: 12px;">
+        <!--Grid column-->
+        <div class="col-xs-4 col-sm-4 col-md-2">
+            <!-- Card -->
+            <div class="home_category_block">
+                <a href="{% url 'iphone'%}" title="iphones">
+                    <img class="img-responsive img-fluid" src="{% static '/img/iphones.png'%}" alt=" " border="0">
+                </a>
+                <a href="{% url 'iphone'%}" class="title_link text-center">iPhones</a>
+            </div>
+            <!-- Card -->
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-2">
+            <!-- Card -->
+            <div class="home_category_block">
+                <a href="#" title="Phones">
+                    <img class="img-responsive img-fluid" src="{% static '/img/Phones.png'%}" alt=" " border="0">
+                </a>
+                <a href="#" class="title_link text-center">Phones</a>
+            </div>
+            <!-- Card -->
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-2">
+            <!-- Card -->
+            <div class="home_category_block">
+                <a href="#" title="laptops">
+                    <img class="img-responsive img-fluid" src="{% static '/img/laptops.png'%}" alt=" " border="0">
+                </a>
+                <a href="#" class="title_link text-center">Laptops</a>
+            </div>
+            <!-- Card -->
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-2">
+            <!-- Card -->
+            <div class="home_category_block">
+                <a href="#" title="tablets">
+                    <img class="img-responsive img-fluid" src="{% static '/img/tablets.png'%}" alt=" " border="0">
+                </a>
+                <a href="#" class="title_link text-center">Tablets</a>
+            </div>
+            <!-- Card -->
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-2">
+            <!-- Card -->
+            <div class="home_category_block">
+                <a href="#" title="games">
+                    <img class="img-responsive img-fluid" src="{% static '/img/gaming.png'%}" alt=" " border="0">
+                </a>
+                <a href="#" class="title_link text-center">Video Games</a>
+            </div>
+            <!-- Card -->
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-2">
+            <!-- Card -->
+            <div class="home_category_block">
+                <a href="#" title="watches">
+                    <img class="img-responsive" src="{% static '/img/watches.jpg'%}" alt=" " border="0">
+                </a>
+                <a href="#" class="title_link text-center">Watches</a>
+            </div>
+            <!-- Card -->
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 2em;">
+        <div class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-4" id="#wrapper">
+            <a href="#" class="btn btn-block" style="background: #7e4d7e; color: white; border-radius: 5px; font-size: 12px; text-transform: none;" title="Buy used tech">
+                More Categories <i class="fa fa-arrow-right" style="font-size: 12px;"></i>
+            </a>
+        </div>
+    </div>
+
+    <hr style="margin-top: 18px; margin-bottom: 1.4em;">
+    <div id="usp_bar">
+        <div class="row">
+
+            <div class="hidden-sm hidden-xs col-md-3">
+                <a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="On Afia you buy and sell directly with other users. Cutting out the middleman means you join a community market with the best prices and highest value." data-original-title="Buy and sell directly">
+                    <i class="fa fa-handshake-o" style="color: #7e4d7e;" aria-hidden="true"></i>
+                    <p>People Powered</p>
+                </a>
+            </div>
+
+            <div class="col-xs-4 col-md-3">
+                <a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="We use PayPal for payments because they provide extensive buyer and seller protections. Get what was advertised or get a refund." data-original-title="Buy and sell with confidence">
+                    <i class="fa fa-paypal" aria-hidden="true"></i>
+                    <p>PayPal Protection</p>
+                </a>
+            </div>
+
+            <div class="col-xs-4 col-md-3">
+                <a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="To keep our marketplace safe we don’t allow broken items. Every product has listing requirements and an approval process to ensure confident shopping." data-original-title="Only fully functional allowed">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+                    <p>No Junk</p>
+                </a>
+            </div>
+
+
+            <div class="col-xs-4 col-md-3">
+                <a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="Shipping costs are included in the listed price. You pay the price you see." data-original-title="No surprise costs">
+                    <i class="fa fa-truck" style="color: #7e4d7e;" aria-hidden="true"></i>
+                    <p>Free Shipping</p>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <hr style="margin-top: 1.4em;">
+
+    <!-- CARRIERS -->
+	<div class="row">
+		<div class="col-xs-12 text-center hidden-xs hidden-sm" style="margin-bottom: 2em;">
+            <h2 class="h4-responsive text-center text-dark" style="margin: 20px 0px; font-size: 27px;">Compatible Phones for all carriers</h2>
+		</div>
+	</div>
+
+</section>
+
+<section id="section_more">
+    <!--Grid row-->
+    <div class="row">
+
+        <!--Grid column-->
+        <div class="hidden-xs hidden-sm col-md-2">
+			<div class="well device_row_cap">
+				<a href="#" align="center">
+					<img src="{% static '/img/ic_generic_smartphone_med.svg'%}">
+				</a>
+				<div class="text">
+					<a href="#">iPhones, Android phones, More</a>
+				</div>
+			</div>
+		</div>
+
+        <div class="visible-xs visible-sm col-sm-12" style="margin-bottom: 10px;">
+			<a href="#" class="btn btn-block" style="border-radius: 5px; font-size: small; text-transform: none; background: #27b7d7;" >
+				<i class="fa fa-mobile" aria-hidden="true" style="font-size: small;"></i> Mobile
+			</a>
+		</div>
+
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search" data-alc=" ">
+                <a href="#" class="image" title="Apple iPhone 6S">
+                    <img src="{% static '/img/iphone-6.png' %}" class="img-responsive" alt="Apple iPhone 6S">
+                </a>
+                <a href="#" class="title">
+                    Apple iPhone 6S
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>114</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search" data-alc=" ">
+                <a href="#" class="image" title="Apple iPhone 6S">
+                    <img src="{% static '/img/iphone-6.png' %}" class="img-responsive" alt="Apple iPhone 6S">
+                </a>
+                <a href="#" class="title">
+                    Apple iPhone 6S
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>114</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search" data-alc=" ">
+                <a href="#" class="image" title="Apple iPhone 6S">
+                    <img src="{% static '/img/iphone-6.png' %}" class="img-responsive" alt="Apple iPhone 6S">
+                </a>
+                <a href="#" class="title">
+                    Apple iPhone 6S
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>114</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search" data-alc=" ">
+                <a href="#" class="image" title="Apple iPhone 6S">
+                    <img src="{% static '/img/iphone-6.png' %}" class="img-responsive" alt="Apple iPhone 6S">
+                </a>
+                <a href="#" class="title">
+                    Apple iPhone 6S
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>114</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2 hidden-xs hidden-sm">
+            <div class="cell_product search" data-alc=" ">
+                <a href="#" class="image" title="Apple iPhone 6S">
+                    <img src="{% static '/img/iphone-6.png' %}" class="img-responsive" alt="Apple iPhone 6S">
+                </a>
+                <a href="#" class="title">
+                    Apple iPhone 6S
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>114</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Tablets -->
+	<div class="row">
+
+		<div class="hidden-xs hidden-sm col-md-2">
+			<div class="well device_row_cap">
+				<a href="#" align="center">
+					<img src="{% static '/img/ic_tablet_med.svg' %}">
+				</a>
+				<div class="text">
+					<a href="#">iPads, Tablets, eReaders</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="visible-xs visible-sm col-sm-12" style="margin-bottom: 10px;">
+			<a href="#" class="btn btn-block" style="border-radius: 5px; font-size: small; text-transform: none; background: #27b7d7;">
+				<i class="fa fa-tablet" aria-hidden="true" style="font-size: small;"></i> Tablets
+			</a>
+		</div>
+
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search" data-alc=" ">
+                <a href="#" class="image" title="Apple iPhone 6S">
+                    <img src="{% static '/img/ipad-air.png' %}" class="img-responsive" alt="Apple iPhone 6S">
+                </a>
+                <a href="#" class="title">
+                    Apple iPad Air
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>140</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search" data-alc=" ">
+                <a href="#" class="image" title="Apple iPhone 6S">
+                    <img src="{% static '/img/ipad-air.png' %}" class="img-responsive" alt="Apple iPhone 6S">
+                </a>
+                <a href="#" class="title">
+                    Apple iPad Air
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>140</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search" data-alc=" ">
+                <a href="#" class="image" title="Apple iPhone 6S">
+                    <img src="{% static '/img/ipad-air.png' %}" class="img-responsive" alt="Apple iPhone 6S">
+                </a>
+                <a href="#" class="title">
+                    Apple iPad Air
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>140</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search" data-alc=" ">
+                <a href="#" class="image" title="Apple iPhone 6S">
+                    <img src="{% static '/img/ipad-air.png' %}" class="img-responsive" alt="Apple iPhone 6S">
+                </a>
+                <a href="#" class="title">
+                    Apple iPad Air
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>140</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2 hidden-sm hidden-xs">
+            <div class="cell_product search" data-alc=" ">
+                <a href="#" class="image" title="Apple iPhone 6S">
+                    <img src="{% static '/img/ipad-air.png' %}" class="img-responsive" alt="Apple iPhone 6S">
+                </a>
+                <a href="#" class="title">
+                    Apple iPad Air
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>140</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cheap Devices -->
+    <div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="promo_block promo_green promo_sm">
+				<a href="#" class="full_link" title="Buy cheap phones">
+					<span class="pull-left">
+						<img src="{% static '/img/promo_budget_phones.png' %}" alt="Cheap Phones" border="0" style="height: 105px;">
+					</span>
+					<span class="text_right text_bigger">
+						<nobr>Cheap Phones</nobr> <nobr>under $200</nobr>
+					</span>
+				</a>
+			</div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="promo_block promo_blue promo_sm">
+				<a href="#" class="full_link" title="Buy cheap MacBooks">
+					<span class="pull-left">
+						<img src="{% static '/img/promo_budget_laptops.png' %}" alt="Cheap Laptops" border="0" style="height: 105px;">
+					</span>
+					<span class="text_right text_bigger">
+						<nobr>Cheap MacBook<span class="hidden-md">s</span></nobr> <nobr>for sale</nobr>
+					</span>
+				</a>
+			</div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="promo_block promo_purple promo_sm">
+				<a href="#" class="full_link" title="Buy cheap Tablets">
+					<span class="pull-left">
+						<img src="{% static '/img/promo_budget_laptops.png' %}" alt="Cheap Laptops" border="0" style="height: 105px;">
+					</span>
+					<span class="text_right text_bigger">
+						<nobr>Cheap Tablet<span class="hidden-md">s</span></nobr> <nobr>for sale</nobr>
+					</span>
+				</a>
+			</div>
+        </div>
+    </div>
+
+    <div class="row">
+
+		<div class="hidden-xs hidden-sm col-md-2">
+			<div class="well device_row_cap">
+				<a href="#" align="center">
+					<img src="{% static '/img/ic_generic_laptop_med.svg' %}">
+				</a>
+				<div class="text">
+					<a href="#" title="Used laptops for sale">MacBooks, Chromebooks, Laptops</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="visible-xs visible-sm col-sm-12" style="margin-bottom: 10px;">
+			<a href="#" class="btn btn-block" style="border-radius: 5px; font-size: small; text-transform: none; background: #27b7d7;">
+				<i class="fa fa-laptop" aria-hidden="true" style="font-size: small;"></i> Laptops
+			</a>
+		</div>
+
+
+		<div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search" data-alc="">
+                <a href="#" class="image" title="MacBook Pro 2018 (With Touch Bar) - 15&quot;">
+                    <img src="{% static '/img/macbook.png' %}" class="img-responsive" alt="MacBook Pro 2018 (With Touch Bar) - 15&quot;">
+                </a>
+                <a href="#" class="title">
+                    MacBook Pro 2018 (With Touch Bar) - 15"
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>1735</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search" data-alc="">
+                <a href="#" class="image" title="MacBook Pro 2018 (With Touch Bar) - 15&quot;">
+                    <img src="{% static '/img/macbook.png' %}" class="img-responsive" alt="MacBook Pro 2018 (With Touch Bar) - 15&quot;">
+                </a>
+                <a href="#" class="title">
+                    MacBook Pro 2018 (With Touch Bar) - 15"
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>1735</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search" data-alc="">
+                <a href="#" class="image" title="MacBook Pro 2018 (With Touch Bar) - 15&quot;">
+                    <img src="{% static '/img/macbook.png' %}" class="img-responsive" alt="MacBook Pro 2018 (With Touch Bar) - 15&quot;">
+                </a>
+                <a href="#" class="title">
+                    MacBook Pro 2018 (With Touch Bar) - 15"
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>1735</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+            <div class="cell_product search" data-alc="">
+                <a href="#" class="image" title="MacBook Pro 2018 (With Touch Bar) - 15&quot;">
+                    <img src="{% static '/img/macbook.png' %}" class="img-responsive" alt="MacBook Pro 2018 (With Touch Bar) - 15&quot;">
+                </a>
+                <a href="#" class="title">
+                    MacBook Pro 2018 (With Touch Bar) - 15"
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>1735</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2 hidden-xs hidden-sm">
+            <div class="cell_product search" data-alc="">
+                <a href="#" class="image" title="MacBook Pro 2018 (With Touch Bar) - 15&quot;">
+                    <img src="{% static '/img/macbook.png' %}" class="img-responsive" alt="MacBook Pro 2018 (With Touch Bar) - 15&quot;">
+                </a>
+                <a href="#" class="title">
+                    MacBook Pro 2018 (With Touch Bar) - 15"
+                </a>
+                <div class="cell_footer clearfix">
+                    <a href="#" class="price">
+                        $<span>1735</span>+
+                    </a>
+                    <a href="#" class="icons game_icons">
+                        <i class="fa fa-24 fa-apple"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Laptops -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+
+			<div id="promo_protection" class="promo_block promo_orange promo_md">
+				<a href="#" class="full_link" title="WarrantyLife Protection Plan">
+					<span class="back_icon">
+						<i class="fa fa-shield"></i>
+					</span>
+					<span class="bottom_left">
+						<span class="text_bigger">Carry confidently</span>
+						<span class="text_smaller">Add a WarrantyLife Protection Plan to your next purchase <i class="fa fa-arrow-right"></i></span>
+					</span>
+				</a>
+			</div>
+
+		</div>
+    </div>
+
+</section>
+
+{% endblock %}

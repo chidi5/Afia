@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<style>
+	.my-swappa-thumbnail {
+    width: 80px;
+	}
+    .my-swappa-menu-item {
+        font-weight: bold;
+    }
+    .my-swappa-menu-subitem {
+        padding-left: 30px;
+    }
+    .list-group-item a {
+        color: #555555;
+    }
+    .list-group-item a.active {
+        color: #009a44;
+        font-weight: bold;
+    }
+    .list-group-item a:hover, a.list-group-item:hover {
+        color: #009a44;
+    }
+    .list-group-item ul {
+        margin-bottom: 0;
+        margin-top: 5px;
+    }
+    .list-group-item li {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+    /* bootstrap overrides */
+    a.list-group-item.active:hover, a.list-group-item.active:focus {
+        background-color: #eceff1;
+        border: 1px solid #eceff1;
+        border-width: 1px 0;
+        box-shadow: none;
+        z-index: 50;
+    }
+    .list-group .list-group-item:hover {
+        background-color: #eceff1;
+        box-shadow: none;
+        z-index: 50;
+    }
+    .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+        border: 1px solid #eceff1;
+        border-width: 1px 0;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<div class="messages">
+	
+</div>
+	
+<section id="section_usp_bar">
+</section>
+
+<section id="breadcrumbs">
+	<div class="row">
+		<div class="col-md-9">
+		</div>
+		<div class="col-md-3" style="margin-bottom: 15px;">
+			<div class="dropdown">
+				<button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdown_bpo" data-toggle="dropdown" aria-expanded="true">
+					<i class="fa fa-fw fa-user"></i>
+					My Afia
+					<i class="caret"></i>
+				</button>
+				<ul class="dropdown-menu col-xs-12" role="menu" aria-labelledby="dropdown_bpo">
+					<li role="presentation">
+						<a href="{% url 'afia' %}" role="menuitem" tabindex="-1">
+							<i class="fa fa-fw fa-dashboard"></i> &nbsp;
+							Dashboard
+						</a>
+					</li>
+
+					<li role="presentation" class="divider"></li>
+
+					<li role="presentation" class="dropdown-header">
+						Buying
+					</li>
+
+					<li role="presentation">
+						<a href="#" role="menuitem" tabindex="-1">
+							<i class="fa fa-fw fa-shopping-cart"></i> &nbsp;
+							Purchases
+						</a>
+					</li>
+					<li role="presentation" class="divider"></li>
+
+					<li role="presentation" class="dropdown-header">
+						Selling
+					</li>
+
+					<li role="presentation">
+						<a href="#" role="menuitem" tabindex="-1">
+							<i class="fa fa-fw fa-usd"></i> &nbsp;
+							Sales
+						</a>
+					</li>
+					<li role="presentation">
+						<a href="#" role="menuitem" tabindex="-1">
+							<i class="fa fa-fw fa-list"></i> &nbsp;
+							Listings
+						</a>
+					</li>
+					<li role="presentation">
+					
+					</li>
+					<li role="presentation">
+						<a href="#" role="menuitem" tabindex="-1">
+							<i class="fa fa-fw fa-star"></i> &nbsp;
+							Feature Listings
+						</a>
+					</li>
+
+					<li role="presentation" class="divider"></li>
+
+					<li role="presentation">
+						<a href="#" role="menuitem" tabindex="-1">
+							<i class="fa fa-fw fa-archive"></i> &nbsp;
+							My Archive
+						</a>
+					</li>
+
+					<li role="presentation" class="divider"></li>
+
+					<li role="presentation" class="dropdown-header">
+						Profile
+					</li>
+
+					<li role="presentation">
+						<a href="{% url 'profile' %}" role="menuitem" tabindex="-1">
+							<i class="fa fa-fw fa-user-circle"></i> &nbsp;
+							View Profile »
+						</a>
+					</li>
+					<li role="presentation">
+						<a href="{% url 'me' %}" role="menuitem" tabindex="-1">
+							<i class="fa fa-fw fa-edit"></i> &nbsp;
+							Edit Profile
+						</a>
+					</li>
+                    <li role="presentation">
+                        <a href="{% url 'account_logout'%}" role="menuitem" tabindex="-1">
+                            <i class="fa fa-fw fa-sign-out"></i> &nbsp;
+                            Logout
+                        </a>
+                    </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="section_top">
+
+	<div class="row">
+		<div class="col-md-6">
+
+			<h1>My Afia</h1>
+
+		</div>
+	</div>
+
+</section>
+
+<section id="section_billboard"></section>
+
+<section id="section_main">
+	<div class="row">
+		<div class="col-md-8" role="main">			
+			<a id="searchable"></a>	
+			<a id="searchable_end"></a>
+		</div>
+
+		<div class="col-md-4">
+			
+		</div>
+	</div>
+</section>
+
+<div class="row">
+    <div class="col-sm-3 hidden-xs">
+
+		<div class="panel panel-default">
+		    <div class="list-group">
+		        
+		        <a href="/my/swappa" class="list-group-item my-swappa-menu-item active">My Afia</a>
+		        <div class="list-group-item">
+		            <a class="my-swappa-menu-item caret-icon" data-toggle="collapse" href="#my-listings" expanded="false">
+		                My Listings
+		                <i class="fa fa-caret-down pull-right"></i>
+		            </a>
+		            <div class="collapse" id="my-listings">
+		                <ul class="list-unstyled">
+		                    <li><a href="#" class="my-swappa-menu-subitem">Active</a></li>
+		                    <li><a href="#" class="my-swappa-menu-subitem">All</a></li>
+		                </ul>
+		            </div>
+		        </div>
+		        <div class="list-group-item">
+		            <a class="my-swappa-menu-item caret-icon" data-toggle="collapse" href="#my-purchases" expanded="false">
+		                My Purchases
+		                <i class="fa fa-caret-down pull-right"></i>
+		            </a>
+		            <div class="collapse" id="my-purchases">
+		                <ul class="list-unstyled">
+		                    <li><a href="#" class="my-swappa-menu-subitem">Active</a></li>
+		                    <li><a href="#" class="my-swappa-menu-subitem">All</a></li>
+		                </ul>
+		            </div>
+		        </div>
+		        <div class="list-group-item">
+		            <a class="my-swappa-menu-item caret-icon" data-toggle="collapse" href="#my-sales" expanded="false">
+		                My Sales
+		                <i class="fa fa-caret-down pull-right"></i>
+		            </a>
+		            <div class="collapse" id="my-sales">
+		                <ul class="list-unstyled">
+		                    <li><a href="#" class="my-swappa-menu-subitem">Active</a></li>
+		                    <li><a href="#" class="my-swappa-menu-subitem">All</a></li>
+		                </ul>
+		            </div>
+		        </div>
+		        <a href="#" class="list-group-item my-swappa-menu-item">My Archive</a>
+		        <div class="list-group-item">
+		            <a class="my-swappa-menu-item caret-icon" data-toggle="collapse" href="#my-profile" expanded="false">
+		                My Profile
+		                <i class="fa fa-caret-down pull-right"></i>
+		            </a>
+		            <div class="collapse" id="my-profile">
+		                <ul class="list-unstyled">
+		                    <li><a href="{% url 'me' %}" class="my-swappa-menu-subitem">Edit Profile</a></li>
+		                    <li><a href="{% url 'profile' %}" class="my-swappa-menu-subitem">View Profile</a></li>
+		                    <li><a href="#" class="my-swappa-menu-subitem">Payment Settings</a></li>
+		                </ul>
+		            </div>
+		        </div>
+		        
+		    </div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-9">	
+		<div class="panel panel-default">
+			<div class="panel-heading">
+		         Active Listings
+			</div>	
+			<div class="panel-body">				
+				You do not have any active listings.
+			</div>		
+		</div>
+
+				
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Active Sales
+			</div>
+			<div class="panel-body">
+				You do not have any active sales.
+			</div>
+					
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Purchases
+			</div>	
+		    <div class="panel-body">
+		        You do not have any purchases.
+		    </div>		
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+{%endblock %}
+
+

@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+<section id="section_usp_bar" style="margin-top: 1em;">
+    <div id="usp_bar">
+		<div class="row">
+
+			<div class="hidden-sm hidden-xs col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="On Afia you buy and sell directly with other users. Cutting out the middleman means you join a community market with the best prices and highest value." data-original-title="Buy and sell directly">
+					<i class="fa fa-handshake-o" style="color: #7e4d7e;" aria-hidden="true"></i>
+					<p>People Powered</p>
+				</a>
+			</div>
+
+			<div class="col-xs-4 col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="We use PayPal for payments because they provide extensive buyer and seller protections. Get what was advertised or get a refund." data-original-title="Buy and sell with confidence">
+					<i class="fa fa-paypal" aria-hidden="true"></i>
+					<p>PayPal Protection</p>
+				</a>
+			</div>
+
+			<div class="col-xs-4 col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="To keep our marketplace safe we don’t allow broken items. Every product has listing requirements and an approval process to ensure confident shopping." data-original-title="Only fully functional allowed">
+					<i class="fa fa-ban" aria-hidden="true"></i>
+					<p>No Junk</p>
+				</a>
+			</div>
+
+
+			<div class="col-xs-4 col-md-3">
+				<a class="usp_item" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="" data-content="Shipping costs are included in the listed price. You pay the price you see." data-original-title="No surprise costs">
+					<i class="fa fa-truck" style="color: #7e4d7e;" aria-hidden="true"></i>
+					<p>Free Shipping</p>
+				</a>
+			</div>
+
+		</div>
+    </div>
+    <hr>
+</section>
+
+<section id="section_top">
+    <div class="row" style="margin-top: 12px;">
+		<div class="col-xs-12 text-center">
+			<h1 class="h4-responsive text-dark" style="margin: 15px 0px;">Buy used, save big</h1>
+			<p class="hidden-xs" style="font-size: 14px; margin-top: 1em;">
+				Afia makes it safe and easy to save money buying gently used technology for home and family.
+			</p>
+		</div>
+	</div>
+
+    <div class="row" style="margin-top: 2em;">
+
+		<div class="col-xs-6 col-sm-4 col-md-3">
+			<div class="cell_product">
+				<a href="{% url 'apple' %}" class="image" title="All things Apple">
+					<i class="fa fa-apple" style="color: #aaaaaa; font-size: 120px;"></i>
+				</a>
+				<a href="{% url 'apple' %}" class="title" style="color: grey; font-size: 20px; padding-bottom: 0.1em;" title="Apple products">
+					Apple
+				</a>
+				<a href="{% url 'apple' %}" class="text-center small_link" style="font-size: 12.5px; display: block; margin-top: 0.5em; color: grey;">
+					iPhones, MacBooks, iPads, Apple Watch
+				</a>
+			</div>
+		</div>
+
+        <div class="col-xs-6 col-sm-4 col-md-3">
+			<div class="cell_product">
+				<a href="#" class="image" title="All things Google">
+					<i class="fa fa-google" style="color: #4285f4; font-size: 120px;"></i>
+				</a>
+				<a href="#" class="title" style="color: grey; font-size: 20px; padding-bottom: 0.1em;" title="Apple products">
+					Google
+				</a>
+				<a href="#" class="small_link text-center" style="font-size: 12.5px; display: block; margin-top: 0.5em; color: grey;">
+					Home, Nexus and Pixel, Android and more
+				</a>
+			</div>
+		</div>
+
+        <div class="col-xs-6 col-sm-4 col-md-3">
+			<div class="cell_product">
+				<a href="#" class="image" title="All things Amazon">
+					<i class="fa fa-amazon" style="color: #ff9900; font-size: 120px;"></i>
+				</a>
+				<a href="#" class="title" style="color: grey; font-size: 20px; padding-bottom: 0.1em;" title="Apple products">
+					Amazon
+				</a>
+				<a href="#" class="text-center" style="font-size: 12.5px; color: grey; display: block; margin-top: 0.5em;">
+					Alexa and Echo, Fire and Kindle tablets
+				</a>
+			</div>
+		</div>
+
+        <div class="col-xs-6 col-sm-4 col-md-3">
+			<div class="cell_product">
+				<a href="#" class="image" title="All things Microsoft">
+					<i class="fa fa-windows" style="color: #80bb03; font-size: 120px;"></i>
+				</a>
+				<a href="#" class="title" style="color: grey; font-size: 20px; padding-bottom: 0.1em;" title="Apple products">
+					Microsoft
+				</a>
+				<a href="#" class="text-center" style="font-size: 12.5px; color: grey; display: block; margin-top: 0.5em;">
+					Xbox, Surface tablets, Windows laptops
+				</a>
+			</div>
+		</div>
+    </div>
+
+    <hr>
+</section>
+
+<section id="section_main" style="margin-top: 12px; margin-bottom: 18px;">
+
+	<div class="row">
+		<div class="col-xs-6 col-sm-3 text-center">
+
+			<div class="home_category_block" data-category="iPhones">
+				<a href="#" title="iPhones">
+					<img src="{% static '/img/iphones.png'%}" alt="iPhones" border="0" class="img-responsive">
+				</a>
+				<a href="#" class="title_link" title="Buy and sell iPhones">
+					iPhones
+				</a>
+				<a href="#" class="small_link">
+					All models for all carriers
+				</a>
+			</div>
+
+		</div>
+        <div class="col-xs-6 col-sm-3 text-center">
+
+			<div class="home_category_block" data-category="Phones">
+				<a href="#" title="Mobile Phones">
+					<img src="{% static '/img/Phones.png'%}" alt="Mobile" border="0" class="img-responsive">
+				</a>
+				<a href="#" class="title_link" title="Buy and sell smartphones">
+					Phones
+				</a>
+				<a href="#" class="small_link">
+					Android, Samsung Galaxy, Google Pixel, and more
+				</a>
+			</div>
+
+		</div>
+        <div class="col-xs-6 col-sm-3 text-center">
+
+			<div class="home_category_block" data-category="Gaming">
+				<a href="#" title="Afia Gaming">
+					<img src="{% static '/img/gaming.png'%}" alt="Gaming" border="0" class="img-responsive">
+				</a>
+				<a href="#" class="title_link" title="Buy and sell games, consoles and accessories">
+					Video Games
+				</a>
+				<a href="#" class="small_link">
+					PlayStation 4, Xbox One, Nintendo Switch, and more
+				</a>
+			</div>
+
+		</div>
+        <div class="col-xs-6 col-sm-3 text-center">
+
+			<div class="home_category_block" data-category="Tablets">
+				<a href="#" title="Shop used Tablets">
+					<img src="{% static '/img/category_tablets.jpg'%}" alt="Gaming" border="0" class="img-responsive">
+				</a>
+				<a href="#" class="title_link" title="Shop used tablets">
+					Tablets
+				</a>
+				<a href="#" class="small_link">
+					iPad, Surface and Android
+				</a>
+			</div>
+
+		</div>
+    </div>
+
+    <div class="row">
+		<div class="col-sm-6 clearfix" style="padding: 0px;">
+			<div class="col-xs-6">
+
+
+				<div class="home_category_block" data-category="Laptops">
+					<a href="#" title="Shop used Laptops" style="display: block;">
+						<img src="{% static '/img/category_laptops.jpg'%}" alt="Laptop" border="0" class="img-responsive">
+					</a>
+					<a href="#" class="title_link" title="Shop used laptops">
+						Laptops
+					</a>
+					<a href="#" class="small_link">
+						MacBooks, Chromebooks, and more
+					</a>
+				</div>
+
+			</div>
+            <div class="col-xs-6">
+
+
+				<div class="home_category_block" data-category="Watches">
+					<a href="#" title="Shop used Smart Watches">
+						<img src="{% static '/img/watches.jpg'%}" alt="Smart Watch" border="0" class="img-responsive not-tablet">
+					</a>
+					<a href="#" class="title_link" title="Shop used watches and wearables">
+						Watches
+					</a>
+					<a href="#" class="small_link">
+						Apple, Samsung Gear, Moto 360, etc
+					</a>
+				</div>
+
+			</div>
+        </div>
+    </div>
+</section>
+
+<section id="section_more">
+
+	<hr>
+
+	<div class="row">
+		<div class="col-md-4 col-sm-4 col-xs-12" align="center">
+			<div class="circle_head circle_head_80 circle_head_green">
+				<i class="fa fa-handshake-o" aria-hidden="true" style="margin-top: 7px;"></i>
+			</div>
+			<h5 style="font-size: medium; margin-bottom: 0.5em;">People powered</h5>
+			<p style="font-size: 14px; line-height: 20px;">
+				On Afia you buy and sell directly with other users.
+				Cutting out the middleman means you join a community market with the best prices and highest value.
+			</p>
+		</div>
+		<div class="col-md-4 col-sm-4 col-xs-12" align="center">
+			<div class="circle_head circle_head_80 circle_head_red">
+				<i class="fa fa-ban" aria-hidden="true" style="margin-top: 7px;"></i>
+			</div>
+			<h5 style="font-size: medium; margin-bottom: 0.5em;">No junk</h5>
+			<p style="font-size: 14px; line-height: 20px;">
+				To keep our marketplace safe, we don’t allow broken items.
+				Every product has listing requirements and an approval process to ensure confident shopping.
+			</p>
+		</div>
+		<div class="col-md-4 col-sm-4 col-xs-12" align="center">
+			<div class="circle_head circle_head_80 circle_head_blue">
+				<i class="fa fa-paypal" aria-hidden="true" style="margin-top: 7px;"></i>
+			</div>
+			<h5 style="font-size: medium; margin-bottom: 0.5em;">PayPal Protections</h5>
+			<p style="font-size: 14px; line-height: 20px;">
+				On Afia, we use PayPal for payments because they provide extensive buyer and seller protections.
+				Get what was advertised or get a refund. Period.
+			</p>
+		</div>
+	</div>
+
+	<div class="well" align="center" style="margin-top: 18px;">
+		More questions? See our <a href="#" title="Seller FAQ">buyer FAQ</a> for more answers.
+		Or contact our support staff <a href="#" title="Help">for help</a>.
+	</div>
+
+</section>
+{% endblock %}

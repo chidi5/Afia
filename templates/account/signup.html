@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load i18n %}
+
+{% load account socialaccount %}
+
+
+{% block content %}
+<div class="row">
+	<div class="col-md-6 col-sm-10 col-md-offset-3 col-sm-offset-1" style="margin-top: 20px;">
+		<h1>Register with Afia</h1>
+		<p>Register today and join millions of like-minded tech enthusiasts on the fastest growing market for gently used tech.</p>
+	</div>
+	<div class="col-md-6 col-sm-10 col-md-offset-3 col-sm-offset-1 panel" style="margin-top: 20px; margin-bottom: 20px; padding: 20px;">
+		<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+			{% csrf_token %} 
+			{% if request.GET.next %}
+                <input type="hidden" name="next" value="{{request.GET.next}}" class="form-control">
+            {% endif %}
+
+			{% if form.non_field_errors %}
+	        <div class="alert alert-warning">
+	          <ul class="alert-message">
+	            {% for error in form.non_field_errors %}
+	            <li>{{ error }}</li>
+	            {% endfor %}
+	          </ul>
+	        </div>
+        	{% endif %}
+
+        	<div class="row">
+	        	<div class="col-sm-12">	
+					<div id="field_email" class="field form-group required">
+						<label for="id_email" class="control-label">E-mail *</label>
+						<div class="controls widget {% if form.email.errors %}has-error{% endif %}" style="margin-bottom: 0px;">
+							<input id="id_email" name="email" type="email" class="form-control input-lg">
+						</div>
+						<div class="errors help-block" style="margin: 0px; padding-top: 5px;">{{ form.email.errors }}</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+	        	<div class="col-sm-12">	
+					<div id="field_first_name" class="field form-group required">
+						<label for="id_first_name" class="control-label">First Name *</label>
+						<div class="controls widget {% if form.first_name.errors %}has-error{% endif %}" style="margin-bottom: 0px;">
+							<input id="id_first_name" name="first_name" type="text" class="form-control input-lg">
+						</div>
+						<div class="errors help-block" style="margin: 0px; padding-top: 5px;">{{ form.first_name.errors }}</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+	        	<div class="col-sm-12">	
+					<div id="field_last_name" class="field form-group required">
+						<label for="id_last_name" class="control-label">Last Name *</label>
+						<div class="controls widget {% if form.last_name.errors %}has-error{% endif %}" style="margin-bottom: 0px;">
+							<input id="id_last_name" name="last_name" type="text" class="form-control input-lg">
+						</div>
+						<div class="errors help-block" style="margin: 0px; padding-top: 5px;">{{ form.last_name.errors }}</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+	        	<div class="col-sm-12">	
+					<div id="field_password1" class="field form-group required">
+						<label for="id_password1" class="control-label">Password *</label>
+						<div class="controls widget {% if form.password1.errors %}has-error{% endif %}" style="margin-bottom: 0px;">
+							<input id="id_password1" name="password1" type="password" class="form-control input-lg">
+						</div>
+						<div class="errors help-block" style="margin: 0px; padding-top: 5px;">{{ form.password1.errors }}</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+	        	<div class="col-sm-12">	
+					<div id="field_password2" class="field form-group required">
+						<label for="id_password2" class="control-label">Confirm Password *</label>
+						<div class="controls widget {% if form.password1.errors %}has-error{% endif %}" style="margin-bottom: 0px;">
+							<input id="id_password2" name="password2" type="password" class="form-control input-lg">
+						</div>
+						<div class="errors help-block" style="margin: 0px; padding-top: 5px;">{{ form.password1.errors }}</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+				</div>
+			</div>
+		</form>
+		<div class="text-center" style="margin-top: 20px; margin-bottom: 16px;">
+			<span style="color: #333333; font-size: 16px;">Or register with your social account</span>
+		</div>
+		<div id="social-buttons" class="text-center" style="margin-bottom: 30px;">
+			<a class="btn btn-social-icon btn-google" href="{% provider_login_url 'google' %}">
+				<img src="{% static '/img/login_google.png '%}" width="40px">
+			</a>
+			<a class="btn btn-social-icon btn-facebook" href="{% provider_login_url 'facebook' %}">
+	
+				<img src="{% static '/img/facebook.png '%}" width="40px" style="padding:6px 3px;">
+			</a>
+		</div>
+	</div>
+</div>
+<div class="row text-center" style="margin-top: 10px; margin-bottom: 30px; font-size: 16px;">
+	<div class="col-md-6 col-sm-10 col-md-offset-3 col-sm-offset-1">
+		Already have an account?
+		<a href="{{ login_url }}">Log In</a>
+	</div>
+</div>
+
+{%endblock%}

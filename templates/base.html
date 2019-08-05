@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,900">
+
+    <link rel="stylesheet" href="{%static '/css/font-awesome/css/font-awesome.min.css'%}">
+    <!--<link href="{%static 'css/mdb.min.css'%}" rel="stylesheet">-->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'css/nwo-theme.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style4.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+
+    {% block css %}
+
+    {% endblock %}
+
+    <title>Buy and Sell Used Phones, Laptops, Watches and More..</title>
+</head>
+<body>
+    <header class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle visible-xs" data-toggle="collapse" data-target="#mobile-navbar-collapse-content" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/" title="Afia" style="">
+                    <img src="https://static.swappa.com/static/images/logos/logo_swappa_nav.svg" alt="Afia Logo">
+                </a>
+            </div>
+            <!-- Search bar -->
+            <div class="navbar-header">
+                <form id="header_search_form" class="navbar-form navbar-search navbar-left" role="search" action="/search" method="get">
+                    <div class="input-group">
+                        <div class="input-group">
+                            <input type="text" name="q" id="id_q" class="form-control search_input" placeholder="Search for phones, tablets, laptops and more..." data-autocomplete-legacy="true" autocomplete="off">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
+
+
+                        <ul class="search_suggestions dropdown-menu">
+                            <li class="disabled" style="font-weight: 500;">
+                                <a tabindex="-1" href="#">Trending Searches</a>
+                            </li>
+                            <li class="divider" style="margin: 3px 10px;"></li>
+
+                                <li>
+                                    <a href="{% url 'iphone'%}" class="suggested_search_link">
+
+                                            <i class="fa fa-fw fa-mobile" aria-hidden="true"></i>
+                                        &nbsp;
+                                        iPhone X
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="suggested_search_link">
+
+                                            <i class="fa fa-fw fa-mobile" aria-hidden="true"></i>
+                                        &nbsp;
+                                        Google Pixel XL
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="suggested_search_link">
+
+                                            <i class="fa fa-fw fa-mobile" aria-hidden="true"></i>
+                                        &nbsp;
+                                        Google Pixel
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="suggested_search_link">
+
+                                            <i class="fa fa-fw fa-mobile" aria-hidden="true"></i>
+                                        &nbsp;
+                                        iPhone 7 Plus
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="suggested_search_link">
+
+                                            <i class="fa fa-fw fa-mobile" aria-hidden="true"></i>
+                                        &nbsp;
+                                        iPhone 6S
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="suggested_search_link">
+
+                                            <i class="fa fa-fw fa-laptop" aria-hidden="true"></i>
+                                        &nbsp;
+                                        MacBooks
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="suggested_search_link">
+
+                                            <i class="fa fa-fw fa-home" aria-hidden="true"></i>
+                                        &nbsp;
+                                        Home Tech
+                                    </a>
+                                </li>
+
+                        </ul>
+
+                    </div>
+                </form>
+            </div>
+
+            <div id="navbar-collapse-content" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                <li id="top_nav_sell" class="top_nav_item">
+                    <a href="{% url 'sell' %}" title="Sell" class="btn btn-default" style="padding: 8px 10px;">
+                        Sell on Afia
+                    </a>
+                </li>
+                {% if user.is_authenticated %}
+                <li id="top_nav_help" class="top_nav_item">
+                    <a href="#" title="Help">
+                        Help
+                    </a>
+                </li>
+            
+            
+                <li id="top_nav_my_swappa" class="visible-xs">
+                    <a href="#">
+                        My Afia
+                    </a>
+                </li>
+                <li class="hidden-xs">
+                    <a href="#" title="My Afia" id="nav_profile_image">
+                        
+                        <img id="nav_profile_img" class="media-object" src="{% if user.image.url != None %} {{user.image.url}}{% elif user.socialaccount_set.all.0.get_avatar_url %} {{ user.socialaccount_set.all.0.get_avatar_url }} {% else%} {% static '/img/blank-profile.png'%} {% endif %}" alt="{{ user.get_full_name }}" height="50" width="50">
+                        
+                    </a>
+                </li>
+                <li id="nav_profile_li" class="dropdown hidden-xs hidden-sm">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{% url 'afia' %}">My Afia</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'me' %}">My Profile</a>
+                        </li>
+                        <li class="divider"></li>
+                        
+                        <li>
+                            <a href="#">My Buying</a>
+                        </li>
+                        <li>
+                            <a href="#">My Selling</a>
+                        </li>
+                        <li>
+                            <a href="#">My Listings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{% url 'account_logout' %}">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+                {%else%}
+                    <li id="top_nav_login" class="">
+                        <a href="{% url 'account_login' %}" title="Login" rel="nofollow">
+                            Login
+                        </a>
+                    </li>
+                    <li id="top_nav_register" class="">
+                        <a href="{% url 'account_signup' %}" title="Register" rel="nofollow">
+                            Register
+                        </a>
+                    </li>
+
+                {%endif%}
+                    <li id="top_nav_cart" class="top_nav_item">
+                        <a href="{%	url	"cart:cart_detail" %}" class="btn btn-default" style="padding: 8px 10px;" title="Shopping Cart">
+                            <i class="fa fa-shopping-cart"></i>
+                            {% with total_items=cart|length	%}
+                            <sup>{{ total_items }}</sup>
+                            {% endwith %}
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="clearfix"></div>
+                <hr class="hidden-xs" style="margin: 0px;">
+
+                    <ul id="nav_cat_bar" class="nav navbar-nav hidden-xs" style="width: 100%;">
+                    <li id="top_nav_iphones" class="nav_bar_item dropdown" data-menu-slug="iphones">
+                        <a href="{% url 'iphone'%}" class="dropdown-toggle">
+                            <i class="fa fa-apple"></i> iPhones
+                        </a>
+                    <ul class="dropdown-menu"><li><a href="/iphone-x">iPhone X</a></li><li><a href="/iphone-8">iPhone 8</a></li><li><a href="/iphone-8-plus">iPhone 8 Plus</a></li><li><a href="/iphone-7">iPhone 7</a></li><li><a href="/iphone-7-plus">iPhone 7 Plus</a></li><li><a href="/iphone-6s">iPhone 6S</a></li><li><a href="/iphone-6s-plus">iPhone 6S Plus</a></li><li><a href="{% url 'iphone'%}"><i class="fa fa-arrow-right"></i> All iPhones</a></li></ul></li>
+                    <li id="top_nav_phones" class="nav_bar_item dropdown" data-menu-slug="phones">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fa fa-mobile"></i> Phones
+                        </a>
+                    <ul class="dropdown-menu"><li><a href="{% url 'iphone'%}">Apple</a></li><li><a href="/mobile/samsung/phones">Samsung</a></li><li><a href="/mobile/sprint/phones">Google</a></li><li><a href="/mobile/t-mobile/phones">Tecno</a></li><li><a href="/mobile/unlocked/phones">Huawei</a></li><li><a href="/mobile/verizon/phones">Xiaomi</a></li><li><a href="/buy/phones"><i class="fa fa-arrow-right"></i> All Phones</a></li></ul></li>
+                    <li id="top_nav_laptops" class="nav_bar_item dropdown" data-menu-slug="laptops">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fa fa-laptop"></i> Laptops
+                        </a>
+                    <ul class="dropdown-menu"><li><a href="/laptops/macbooks"><i class="fa fa-apple"></i> MacBooks</a></li><li><a href="/laptops/chromebooks"><i class="fa fa-chrome"></i> Chromebooks</a></li><li><a href="/laptops/windows"><i class="fa fa-windows"></i> Windows</a></li><li><a href="/laptops"><i class="fa fa-arrow-right"></i> All Laptops</a></li></ul></li>
+                    <li id="top_nav_gaming" class="nav_bar_item hidden-sm dropdown" data-menu-slug="gaming">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fa fa-gamepad"></i> Video Games
+                        </a>
+                    <ul class="dropdown-menu"><li><a href="#">Nintendo 3DS</a></li><li><a href="#">Nintendo Switch</a></li><li><a href="#">PlayStation 4</a></li><li><a href="#">PlayStation Vita</a></li><li><a href="#">Xbox One</a></li><li><a href="/gaming"><i class="fa fa-arrow-right"></i> All Gaming</a></li></ul></li>
+                    <li id="top_nav_tablets" class="nav_bar_item hidden-sm dropdown" data-menu-slug="tablets">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fa fa-tablet"></i> Tablets
+                        </a>
+                    <ul class="dropdown-menu"><li><a href="#"><i class="fa fa-apple"></i> iPad</a></li><li><a href="/mobile/devices?type=tablet&amp;platform=android"><i class="fa fa-android"></i> Android</a></li><li><a href="/mobile/devices?type=tablet&amp;platform=windows-mobile"><i class="fa fa-windows"></i> Windows / Surface</a></li><li><a href="/buy/tablets"><i class="fa fa-arrow-right"></i> All Tablets</a></li></ul></li>
+                    <li id="top_nav_wearables" class="nav_bar_item visible-lg" data-menu-slug="wearables">
+                        <a href="#">
+                            <i class="fa fa-clock-o"></i> Watches
+                        </a>
+                    </li>
+                    <li id="top_nav_home_tech" class="nav_bar_item visible-lg" data-menu-slug="home_tech">
+                        <a href="#">
+                            <i class="fa fa-home"></i> Home Tech
+                        </a>
+                    </li>
+                    <li id="top_nav_more" class="nav_bar_item dropdown hidden-lg">
+                        <a href="/buy" class="dropdown-toggle" data-toggle="dropdown">
+                            More <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="visible-sm" data-menu-slug="gaming">
+                                <a href="#">
+                                    <i class="fa fa-gamepad"></i> Video Games
+                                </a>
+                            </li>
+                            <li class="visible-sm" data-menu-slug="tablets">
+                                <a href="#">
+                                    <i class="fa fa-tablet"></i> Tablets
+                                </a>
+                            </li>
+                            <li data-menu-slug="wearables">
+                                <a href="#">
+                                    <i class="fa fa-clock-o"></i> Watches + Wearable
+                                </a>
+                            </li>
+                            <li data-menu-slug="home_tech">
+                                <a href="#">
+                                    <i class="fa fa-home"></i> Home Tech
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+            </div>
+
+            <!-- MOBILE NAV -->
+            <div id="mobile-navbar-collapse-content" class="collapse navbar-collapse">
+
+                <ul id="mob_nav" class="nav navbar-nav visible-xs">
+
+                    <li id="mob_nav_cart" class="top_nav_item">
+                        <a href="#" title="Shopping Cart">
+                            <i class="fa fa-shopping-cart"></i>
+                            Cart (#)
+                        </a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li id="mob_nav_buy" class="mob_menu_parent title">
+                        <a title="Buy">
+                            Buy <i class="fa fa-caret-right"></i>
+                         </a>
+                        <ul class="mob_menu_slide">
+                            <li class="title mob_menu_back"><a title="Buy"><i class="fa fa-caret-left"></i> Buy</a></li>
+                            <li class="mob_menu_parent"><a><i class="fa fa-caret-right"></i> iPhones</a>
+                                <ul class="mob_menu_slide">
+                                    <li class="title mob_menu_back"><a title="iPhones"><i class="fa fa-caret-left"></i> iPhones</a></li>
+                                    <li><a href="/buy/apple-iphone-x">iPhone X</a></li>
+                                    <li><a href="/buy/apple-iphone-8">iPhone 8</a></li>
+                                    <li><a href="/buy/apple-iphone-8-plus">iPhone 8 Plus</a></li>
+                                    <li><a href="/buy/apple-iphone-7">iPhone 7</a></li>
+                                    <li><a href="/buy/apple-iphone-7-plus">iPhone 7 Plus</a></li>
+                                    <li><a href="/buy/apple-iphone-6s">iPhone 6S</a></li>
+                                    <li><a href="/buy/apple-iphone-6s-plus">iPhone 6S Plus</a></li>
+                                    <li><a href="/buy/iphones"><i class="fa fa-arrow-right"></i> All iPhones</a></li>
+                                </ul>
+                            </li>
+                            <li class="mob_menu_parent"><a><i class="fa fa-caret-right"></i> Phones</a>
+                                <ul class="mob_menu_slide"><li class="title mob_menu_back"><a title="Phones"><i class="fa fa-caret-left"></i> Phones</a></li>
+                                    <li><a href="/buy/iphones">Apple</a></li>
+                                    <li><a href="/mobile/samsung/phones">Samsung</a></li>
+                                    <li><a href="#"><i class="fa fa-arrow-right"></i> All Phones</a></li>
+                                </ul>
+                            </li>
+                            <li class="mob_menu_parent"><a><i class="fa fa-caret-right"></i> Laptops</a>
+                                <ul class="mob_menu_slide">
+                                    <li class="title mob_menu_back"><a title="Laptops"><i class="fa fa-caret-left"></i> Laptops</a></li>
+                                    <li><a href="/laptops/macbooks"><i class="fa fa-apple"></i> MacBooks</a></li>
+                                    <li><a href="/laptops/chromebooks"><i class="fa fa-chrome"></i> Chromebooks</a></li>
+                                    <li><a href="/laptops/windows"><i class="fa fa-windows"></i> Windows</a></li>
+                                    <li><a href="/laptops"><i class="fa fa-arrow-right"></i> All Laptops</a></li>
+                                </ul>
+                            </li>
+                            <li class="mob_menu_parent"><a><i class="fa fa-caret-right"></i> iPads + Tablets</a>
+                                <ul class="mob_menu_slide">
+                                    <li class="title mob_menu_back"><a title="iPads + Tablets"><i class="fa fa-caret-left"></i> iPads + Tablets</a></li>
+                                    <li><a href="/buy/apple/ipad"><i class="fa fa-apple"></i> iPad</a></li>
+                                    <li><a href="/mobile/devices?type=tablet&amp;platform=android"><i class="fa fa-android"></i> Android</a></li>
+                                    <li><a href="/mobile/devices?type=tablet&amp;platform=windows-mobile"><i class="fa fa-windows"></i> Windows / Surface</a></li>
+                                    <li><a href="/mobile/devices?type=tablet&amp;brand=amazon"><i class="fa fa-amazon"></i> Amazon / Kindle</a></li>
+                                    <li><a href="/buy/tablets"><i class="fa fa-arrow-right"></i> All Tablets</a></li>
+                                </ul>
+                            </li>
+                            <li class="mob_menu_parent"><a><i class="fa fa-caret-right"></i> Video Games</a>
+                                <ul class="mob_menu_slide">
+                                    <li class="title mob_menu_back"><a title="Video Games"><i class="fa fa-caret-left"></i> Video Games</a></li>
+                                    <li><a href="#">Nintendo 3DS</a></li>
+                                    <li><a href="#">Nintendo Switch</a></li>
+                                    <li><a href="#">PlayStation 4</a></li>
+                                    <li><a href="/gaming/playstation-vita">PlayStation Vita</a></li>
+                                    <li><a href="/gaming/retro-gaming">Retro</a></li>
+                                    <li><a href="/gaming/xbox-one">Xbox One</a></li>
+                                    <li><a href="#"><i class="fa fa-arrow-right"></i> All Gaming</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{%url 'buy'%}"><i class="fa fa-arrow-right"></i> All Categories</a></li>
+                        </ul>
+                    </li>
+                    <li id="mob_nav_sell" class="mob_menu_parent title">
+                        <a title="Sell">
+                            Sell <i class="fa fa-caret-right"></i>
+                        </a>
+                    <ul class="mob_menu_slide"><li class="title mob_menu_back"><a title="Sell"><i class="fa fa-caret-left"></i> Sell</a></li><li class="mob_menu_parent"><a><i class="fa fa-caret-right"></i> iPhones</a><ul class="mob_menu_slide"><li class="title mob_menu_back"><a title="iPhones"><i class="fa fa-caret-left"></i> iPhones</a></li><li><a href="/sell/apple-iphone-x">iPhone X</a></li><li><a href="/sell/apple-iphone-8">iPhone 8</a></li><li><a href="/sell/apple-iphone-8-plus">iPhone 8 Plus</a></li><li><a href="/sell/apple-iphone-7">iPhone 7</a></li><li><a href="/sell/apple-iphone-7-plus">iPhone 7 Plus</a></li><li><a href="/sell/apple-iphone-6s">iPhone 6S</a></li><li><a href="/sell/apple-iphone-6s-plus">iPhone 6S Plus</a></li><li><a href="/sell/iphones"><i class="fa fa-arrow-right"></i> All iPhones</a></li></ul></li><li class="mob_menu_parent"><a><i class="fa fa-caret-right"></i> Phones</a><ul class="mob_menu_slide"><li class="title mob_menu_back"><a title="Phones"><i class="fa fa-caret-left"></i> Phones</a></li><li><a href="/sell/iphones">Apple</a></li><li><a href="/sell/devices/samsung">Samsung</a></li><li><a href="/sell/google/phone">Google</a></li><li><a href="/sell/devices/htc">HTC</a></li><li><a href="/sell/devices/log">LG</a></li><li><a href="/sell/devices/motorola">Motorola</a></li><li><a href="/sell/devices/oneplus">One Plus</a></li><li><a href="/sell/smartphone"><i class="fa fa-arrow-right"></i> All Phones</a></li></ul></li><li class="mob_menu_parent"><a><i class="fa fa-caret-right"></i> Video Games</a><ul class="mob_menu_slide"><li class="title mob_menu_back"><a title="Video Games"><i class="fa fa-caret-left"></i> Video Games</a></li><li><a href="/sell/gaming/nintendo-3ds-video-games">Nintendo 3DS</a></li><li><a href="/sell/gaming/nintendo-switch-video-games">Nintendo Switch</a></li><li><a href="/sell/gaming/playstation-4-video-games">PlayStation 4</a></li><li><a href="/sell/gaming/playstation-vita-video-games">PlayStation Vita</a></li><li><a href="/sell/gaming/retro-gaming-video-games">Retro</a></li><li><a href="/sell/gaming/xbox-one-video-games">Xbox One</a></li><li><a href="/sell/gaming"><i class="fa fa-arrow-right"></i> All Gaming</a></li></ul></li><li class="mob_menu_parent"><a><i class="fa fa-caret-right"></i> Home Tech</a><ul class="mob_menu_slide"><li class="title mob_menu_back"><a title="Home Tech"><i class="fa fa-caret-left"></i> Home Tech</a></li><li><a href="/sell/home-tech/search?brand=amazon"><i class="fa fa-amazon"></i> Amazon Alexa</a></li><li><a href="/sell/home-tech/search?brand=google"><i class="fa fa-google"></i> Google Home</a></li><li><a href="/sell/home-tech/search?brand=sonos"><i class="fa fa-volume-up"></i> Sonos</a></li><li><a href="/sell/home-tech/search?brand=nest"><i class="fa fa-thermometer-empty"></i> Nest</a></li><li><a href="/sell/home-tech"><i class="fa fa-arrow-right"></i> All Smart Home</a></li></ul></li><li class="mob_menu_parent"><a><i class="fa fa-caret-right"></i> Laptops</a><ul class="mob_menu_slide"><li class="title mob_menu_back"><a title="Laptops"><i class="fa fa-caret-left"></i> Laptops</a></li><li><a href="/sell/macbook"><i class="fa fa-apple"></i> MacBooks</a></li><li><a href="/sell/laptops/search?category=chromebooks"><i class="fa fa-chrome"></i> Chromebooks</a></li><li><a href="/sell/laptops/search?platform=windows"><i class="fa fa-windows"></i> Windows</a></li><li><a href="/sell/laptops"><i class="fa fa-arrow-right"></i> All Laptops</a></li></ul></li><li class="mob_menu_parent"><a><i class="fa fa-caret-right"></i> iPads + Tablets</a><ul class="mob_menu_slide"><li class="title mob_menu_back"><a title="iPads + Tablets"><i class="fa fa-caret-left"></i> iPads + Tablets</a></li><li><a href="/sell/ipad"><i class="fa fa-apple"></i> iPad</a></li><li><a href="/sell/devices/tablets?platform=android"><i class="fa fa-android"></i> Android</a></li><li><a href="/sell/devices/tablets?platform=windows-mobile"><i class="fa fa-windows"></i> Windows / Surface</a></li><li><a href="/sell/devices/tablets?manufacturer=amazon"><i class="fa fa-amazon"></i> Amazon / Kindle</a></li><li><a href="/sell/tablets"><i class="fa fa-arrow-right"></i> All Tablets</a></li></ul></li><li><a href="/sell"><i class="fa fa-arrow-right"></i> All Categories</a></li></ul></li>
+                    <li id="mob_nav_help">
+                        <a href="#" title="Help">
+                            Help
+                        </a>
+                    </li>
+                    <li id="mob_nav_my_swappa">
+                        <a href="{% url 'afia' %}">
+                            My Afia
+                        </a>
+                    </li>
+                    {%else%}
+                    <li id="mob_nav_login">
+                        <a href="{% url 'account_login' %}" title="Login" rel="nofollow">
+                            Login
+                        </a>
+                    </li>
+                    <li id="mob_nav_register">
+                        <a href="{% url 'account_signup' %}" title="Register" rel="nofollow">
+                            Register
+                        </a>
+                    </li>
+                    {%endif%}
+
+                </ul>
+
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- main content here -->
+            {% block content %}
+
+
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container clearfix">
+            <div class="row" style="font-size: 14px;">
+                <div class="col-xs-6 col-sm-2">
+                    <!-- Buy -->
+                    <ul>
+                        <li><a href="#">Buy</a></li>
+                        <li><a href="#" title="Buy used phone">Buy Phones</a></li>
+                        <li><a href="#" title="Tablets and iPads">Buy Tablets</a></li>
+                        <li><a href="#" title="MacBooks for sale">Buy MacBooks</a></li>
+                        <li><a href="#" title="MacBooks, Chromebooks and Laptops">Buy Laptops</a></li>
+                        <li><a href="#" title="Video games and consoles">Buy Video Games</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <!-- Sell -->
+                    <ul>
+                        <li><a href="#">Sell</a></li>
+                        <li><a href="#">How to Sell</a></li>
+                        <li><a href="#" title="Sell used iPhone">Sell iPhones</a></li>
+                        <li><a href="#" title="Sell used smartphone">Sell Phone</a></li>
+                        <li><a href="#" title="Sell iPad or tablet">Sell Tablet</a></li>
+                        <li><a href="#" title="Sell MacBooks, Chromebooks and Laptops">Sell Laptop</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <ul>
+                        <li><a href="#">Phone Finder</a></li>
+                        <li><a href="#" title="IMEI check">IMEI / ESN Check</a></li>
+                        <li><a href="#">Afia vs. Jumia</a></li>
+                        <li><a href="#">Afia vs. Konga</a></li>
+                        <li><a href="#">Affiliate Program</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <!-- Support -->
+                    <ul>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Data Services</a></li>
+                        <li><a href="#" title="Used Mobile Price Lists">Price Lists</a></li>
+                        <li><a href="#" title="Used phone protection plans">Protection Plans</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <!-- About -->
+                    <ul>
+                        <li><a href="#">About Afia</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Press</a>, <a href="#">Reviews</a></li>
+                        <li><a href="#">Policies</a>, <a href="#">Fees</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 25px;">
+
+                <div class="col-xs-12 col-sm-4">
+                    <a href="/">
+                        <img id="footer_logo" src="https://static.swappa.com/static/images/logos/swappa_footer.svg" alt="Afia" style="margin-left: -11px; max-width: 200px;">
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="social_links">
+                        <a href="#" class="social"><i class="fa fa-facebook-square"></i></a>
+                        <a href="#" class="social"><i class="fa fa-twitter-square"></i></a>
+                        <a href="#" class="social"><i class="fa fa-instagram"></i></a>
+                        <a href="#" class="social"><i class="fa fa-youtube-square"></i></a>
+                        <a href="#" class="social"><i class="fa fa-pinterest-square"></i></a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="copyright" style="font-size: small;">
+                        Copyright © 2019 - till date Afia, LLC
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+<script src="{% static '/js/jquery-3.4.0.min.js'%}"></script>
+<script src="{% static '/js/main.js'%}"></script> <!-- Resource jQuery -->
+<script type="text/javascript" src="{%static 'js/popper.min.js'%}"></script>
+  <!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="{%static 'js/bootstrap.js'%}"></script>
+<script type="text/javascript" src="{%static 'js/mdb.min.js'%}"></script>
+<script>
+    $(function() {
+
+        //$('a[data-toggle="popover"]').popover({trigger: 'click'});
+        $("a.usp_item").click(function() {
+            var text = $(this).text().trim();
+            ga("send", "event", "USP Bar", "Click Item", text, 0);
+        });
+    });
+</script>
+<script type="text/javascript">
+    // change kind of social buttons
+    (function($) {
+        var $window = $(window),
+        $html = $('a, div#customBtn', '#social-buttons');
+
+        function resize() {
+                        //if (768-11 <= $window.width() && $window.width() < 992-11) {
+                        //  return $html.removeClass('btn-social btn-block')
+                        //          .addClass('btn-social-icon');
+                        //} else {
+                        //  $html.removeClass('btn-social-icon')
+                        //          .addClass('btn-social btn-block');
+                        //}
+            $('.btn-open-id').addClass("pull-right").removeClass("btn-social btn-block ");
+        }
+        $window
+            .resize(resize)
+            .trigger('resize');
+    })(jQuery);
+</script>
+<script>
+    (function() {
+
+        $("a[data-confirm]").on('click', function () {
+            var msg = $(this).data('confirm') || 'Are you sure?';
+            return confirm(msg);
+        });
+
+        $(window).scroll(function() {
+            if($(this).scrollTop() > 65) {
+                $('.navbar').addClass('bordered');
+            } else {
+                $('.navbar').removeClass('bordered');
+            }
+        });
+
+        $('[data-toggle="popover"]').popover({container: 'body'})
+
+    })();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"></script>
+    
+<script type="text/javascript">
+    Vue.options.delimiters = ["[[", "]]"]
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.js"></script>
+<script async="" src="https://static.swappa.com/static/js/search-base.js"></script>
+<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+<script type="text/javascript">
+$(document).on('click', '.caret-icon', function() {
+   $("i", this).toggleClass('fa-caret-up fa-caret-down');
+})
+</script>
+
+{% block js %}
+
+{% endblock %}
+</body>
+</html>

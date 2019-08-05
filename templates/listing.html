@@ -1,0 +1,582 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+
+	<div class="messages">
+	</div>
+
+	<section id="section_usp_bar">
+	<!-- Empty -->
+	</section>
+
+    <section id="section_top">
+	<!-- Empty -->
+    </section>
+
+
+
+<section id="section_billboard" style="margin-top: 20px;">
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3" align="center">
+
+			<div style="min-height: 170px;" align="center">
+				<a href="" title={% if type %}"{{ type.name }}"{% endif %}>
+                    <img src="{{ type.image.url }}" height="240" alt="{{ type.name }} for sale" class="img-responsive product_img">
+				</a>
+			</div>
+
+		</div>
+		<div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
+
+            <div class="hidden-xs" style="height: 30px;"><!-- Vertical Spacer --></div>
+
+				<!--
+				<div class="hidden-xs" style="height: 25px;"><!-- Vertical Spacer </div>
+                    -->
+
+			<div class="billboard_container">
+				<h1>
+					{{ type.name }}
+				</h1>
+
+				<hr class="hidden-xs">
+
+				<div class="row">
+					<div class="hidden-xs">
+						<div class="col-sm-6 col-md-3">
+
+								<a class="btn btn-default btn-block btn-sm" href="javascript:void(0);" title="Subscribe to {{ type.name }}" data-toggle="modal" data-target="#subscribe_modal">
+
+                                    <i class="fa fa-bell-o"></i> Subscribe
+
+								</a>
+
+						</div>
+						<div class="hidden-sm col-md-3">
+
+                            <p class="btn_side_text">
+                                Get notified of new listings
+                            </p>
+
+						</div>
+						<div class="col-sm-6 col-md-3">
+							<a class="btn btn-default btn-block btn-sm" title="Sell my {{ type.name }}" href="{% url 'sell'%}">
+								Sell phone
+							</a>
+						</div>
+						<div class="hidden-sm col-md-3">
+							<p class="btn_side_text">
+								Sell with no listing fees
+							</p>
+						</div>
+					</div>
+
+					<div class="visible-xs">
+						<div class="col-xs-12" style="margin-bottom: 5px;">
+							<a class="btn btn-default btn-block btn-sm" title="Sell my {{ type.name }}" href="{% url 'sell'%}">
+								Sell phone
+							</a>
+						</div>
+
+						<div class="col-xs-6">
+                            <a class="btn btn-default btn-block btn-sm" href="javascript:void(0);" title="Subscribe to {{ type.name }}" data-toggle="modal" data-target="#subscribe_modal">
+                                <i class="fa fa-bell-o"></i> Subscribe
+                            </a>
+						</div>
+                        <!--
+						<div class="col-xs-6">
+							<a class="btn btn-default btn-sm btn-block" href="javascript:void(0);" data-toggle="modal" data-target="#product_price_modal">
+								Pricing
+							</a>
+						</div> -->
+					</div>
+				</div>
+                <!-- no listing--> {% if count == 0%}
+                <div class="jumbotron" style="margin: 50px 0 30px 0;">
+                    <h2>No listings currently for sale</h2>
+                </div>
+
+			</div>
+            {% else %}
+			<div class="row hidden-xs">
+				<div class="col-sm-9 col-md-10">
+
+					<h2 style="margin-bottom: 0; margin-top: 6em;">
+                        $<span>{{ price_min.total__min }}</span>-<span>{{ price_max.total__max }}</span>
+						<small>{{ count }} listings</small>
+					</h2>
+
+				</div>
+                <!--
+				<div class="col-sm-3 col-md-2">
+
+					<a class="btn btn-default btn-sm btn-block" href="javascript:void(0);" data-toggle="modal" data-target="#product_price_modal" style="font-size: 12px;">
+						<i class="fa fa-area-chart"></i>
+						Pricing
+					</a>
+
+				</div>
+				-->
+			</div>
+
+		</div>
+	</div>
+
+</section>
+
+<section id="section_main">
+
+
+	<hr style="margin-bottom: 20px;">
+
+	<div class="row">
+		<div class="col-xs-12 visible-xs">
+
+			<div class="row" style="">
+				<div class="col-xs-9 pull-left">
+					<h2>
+                        $<span>{{ price_min.total__min }}</span>-<span>{{ price_max.total__max }}</span>
+						<small>{{ count }} listings</small>
+					</h2>
+				</div>
+				<div class="col-xs-3 pull-right text-right">
+					<a href="javascript:showFilterModal();" class="btn btn-xl btn-default">Filter</a>
+				</div>
+			</div>
+
+			<hr style="margin-top: 5px;">
+
+		</div>
+		<div class="hidden-xs col-sm-4 col-md-3">
+
+
+			<div id="filter_container" class="well">
+                <div id="filters">
+
+                    <div class="clearfix">
+                        <h3 class="pull-left" style="margin-top: 0;">
+                            Filter by
+                        </h3>
+                        <a class="pull-right" id="clear_filters" href="javascript:void(0);">
+                            Clear filters
+                        </a>
+                    </div>
+
+
+                    <p><strong>Shipping</strong></p>
+                    <ul class="list-unstyled">
+                        <li>
+                            <label>
+                                <input type="checkbox" name="express_shipping" value="express_shipping" data-single="true">
+                                Express Shipping
+                            </label>
+                        </li>
+                    </ul>
+
+                    <p><strong>Condition</strong></p>
+                    <ul class="list-unstyled">
+
+                        <li>
+                            <label class={% if new == 0 %}"text-muted"{% endif %}>
+                                <input type="checkbox" name="condition" value="New">New
+                                {% if new != 0 %}
+                                <span class="text-muted">({{ new }})</span>
+                                {% endif %}
+                            </label>
+                        </li>
+
+                        <li>
+                            <label class={% if mint == 0 %}"text-muted"{% endif %}>
+                                <input type="checkbox" name="condition" value="Mint">Mint
+                                {% if mint != 0 %}
+                                <span class="text-muted">({{ mint }})</span>
+                                {% endif %}
+                            </label>
+                        </li>
+
+                        <li>
+                            <label class={% if good == 0 %}"text-muted"{% endif %}>
+                                <input type="checkbox" name="condition" value="Good">Good
+                                {% if good != 0 %}
+                                <span class="text-muted">({{ good }})</span>
+                                {% endif %}
+                            </label>
+                        </li>
+
+                        <li>
+                            <label class={% if fair == 0 %}"text-muted"{% endif %}>
+                                <input type="checkbox" name="condition" value="Fair">Fair
+                                {% if fair != 0 %}
+                                <span class="text-muted">({{ fair }})</span>
+                                {% endif %}
+                            </label>
+                        </li>
+
+                    </ul>
+
+                    <p><strong>Color</strong></p>
+                    <ul class="list-unstyled">
+                        {%	for	col	in color %}
+                        <li>
+                            <label>
+                                <input type="checkbox" name="color" value="{{ col }}">{{ col }}
+                                {% if colcount != 0 %}
+                                <span class="text-muted">({{ colcount }})</span>
+                                {% endif %}
+                            </label>
+                        </li>
+                        {%	endfor	%}
+                    </ul>
+
+                    <p><strong>Storage</strong></p>
+                    <ul class="list-unstyled">
+
+                        <li>
+                            <label class="text-muted">
+                                <input type="checkbox" name="storage" value="4gb">
+                                4 GB
+                            </label>
+                        </li>
+
+                        <li>
+                            <label>
+                                <input type="checkbox" name="storage" value="8gb">
+                                8 GB <span class="text-muted">(1)</span>
+                            </label>
+                        </li>
+
+                        <li>
+                            <label class="text-muted">
+                                <input type="checkbox" name="storage" value="16gb">
+                                16 GB
+                            </label>
+                        </li>
+                    </ul>
+
+                    <h3>Sort by</h3>
+                    <ul class="list-unstyled">
+                        <li>
+                            <label>
+                                <input type="radio" name="sort" value="{{price_min.total__min}}">
+                                Price (lowest)
+                            </label>
+
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="sort" value="{{price_max.total__max}}">
+                                Price (highest)
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="sort" value="date_min">
+                                Date (newest)
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="sort" value="date_max">
+                                Date (oldest)
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-8 col-md-9">
+
+			<div class="listing_previews" style="margin-bottom: 12px;">
+            {% for product in products %}
+                <div class="listing_row listing_None listing_None" data-index="1">
+                    <a href="{{ product.get_absolute_url	}}" title="{{ product.system.name }} {{ product.storage }} {{ product.color }} {{ product.model }} ">
+                    <div class="row">
+
+
+                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                            <div class="seller_info">
+                                <div class="pull-left" style="margin-right: 8px; position: relative;">
+
+                                    <img class="media-object circle_image" src="{% if product %}{{ product.user.image.url }}{% elif product.user.socialaccount_set.all.0.get_avatar_url%}{{ product.user.socialaccount_set.all.0.get_avatar_url }}{% else%}{% static '/img/blank-profile.png'%}{% endif %}" alt="{% if product.display_name != none %}{{ product.display_name }}{% else%}{{ product.user.get_full_name }}{% endif %}" height="40" width="40">
+
+                                </div>
+                                <div class="media-body" style="display: block; width: inherit;">
+                                    <div class="row">
+                                        <div class="col-xs-9 col-sm-10 col-md-12">
+                                            <div class="text-nowrap" style="overflow: hidden;">
+                                                <span>{{ product.user.display_name }}</span>
+                                                <!--<span class="seller_tag _paypal"><i class="fa fa-paypal" aria-hidden="true"></i></span>--->
+                                            </div>
+                                            <div class="text-nowrap" style="overflow: hidden;">
+                                                <span id="stars-swappa" class="stars" data-value="4.5" title="good"><i class="fa fa-fw fa-star" title="good" data-score="1"></i><i class="fa fa-fw fa-star" title="good" data-score="2"></i><i class="fa fa-fw fa-star" title="good" data-score="3"></i><i class="fa fa-fw fa-star" title="good" data-score="4"></i><i class="fa fa-fw fa-star-half-o" title="good" data-score="5"></i><input type="hidden" name="score" value="4.5" readonly="readonly"></span>
+                                                <sup>23</sup> -
+                                                <span>{{ product.user.location }}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-3 col-sm-2 hidden-md hidden-lg text-right">
+                                            <span class="price"><sup>$</sup>{{ product.total }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8">
+                            <div class="listing_info">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-10">
+                                        <span class="condition_label">{{ product.condition }}</span>
+                                        &nbsp;•&nbsp;<span class="modeln_label">{{ product.model }}</span>
+                                        &nbsp;•&nbsp;<span class="color_label">{{ product.color }}</span>
+                                        &nbsp;•&nbsp;<span class="storage_label">{{ product.storage }}</span>
+                                        <i class="fa fa-fw fa-star" style="color: #F76808;"></i>
+
+                                        <span class="has_tooltip" style="color: #f76808;" data-title="Optional Express Shipping (1-2 days) for $25" data-original-title="" title="">
+                                            <i class="fa fa-fw fa-bolt"></i>
+                                        </span>
+                                        <div class="clearfix"></div>
+                                        <div class="headline hidden-xs text-nowrap" style="overflow: hidden;">
+                                            {{ product.system.name }} {{ product.storage }} {{ product.color }} {{ product.model }}
+                                        </div>
+                                    </div>
+                                    <div class="hidden-xs hidden-sm col-md-2 text-right">
+
+                                        <span class="price"><sup>$</sup>{{ product.total }}</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+    {% endif %}
+
+<section id="section_more" style="margin-bottom: 20px;">
+	<div class="row">
+
+		<div class="col-xs-12 col-sm-8 col-sm-push-4 col-md-9 col-md-push-3">
+        {% if count > 0%}
+            <div class="well" style="margin-top: 20px;">
+                <a href="{% url 'sell'%}" class="btn btn-default btn-sm pull-right" style="margin-bottom: 10px;" title="Sell my {{ type.name }}">
+                    Sell this <span class="hidden-xs">phone</span>
+                </a>
+                <h2 style="margin: 5px 0 0 0;">Recently Sold</h2>
+            </div>
+        {% for product in products %}
+            {% if product.available is False %}
+                <div class="listing_row listing_None listing_None" data-index="1">
+                    <a href="{{ product.get_absolute_url	}}" title="{{ type.name }} {{ product.storage }} {{ product.color }} {{ product.model }} ">
+                    <div class="row">
+
+
+                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                            <div class="seller_info">
+                                <div class="pull-left" style="margin-right: 8px; position: relative;">
+
+                                    <img class="media-object circle_image" src="{{ product.user.image.url }}" alt="{{ product.user.display_name }}" height="40" width="40">
+
+                                </div>
+                                <div class="media-body" style="display: block; width: inherit;">
+                                    <div class="row">
+                                        <div class="col-xs-9 col-sm-10 col-md-12">
+                                            <div class="text-nowrap" style="overflow: hidden;">
+                                                <span>{{ product.user.display_name }}</span>
+                                                <!--<span class="seller_tag _paypal"><i class="fa fa-paypal" aria-hidden="true"></i></span>--->
+                                            </div>
+                                            <div class="text-nowrap" style="overflow: hidden;">
+                                                <span id="stars-swappa" class="stars" data-value="4.5" title="good"><i class="fa fa-fw fa-star" title="good" data-score="1"></i><i class="fa fa-fw fa-star" title="good" data-score="2"></i><i class="fa fa-fw fa-star" title="good" data-score="3"></i><i class="fa fa-fw fa-star" title="good" data-score="4"></i><i class="fa fa-fw fa-star-half-o" title="good" data-score="5"></i><input type="hidden" name="score" value="4.5" readonly="readonly"></span>
+                                                <sup>23</sup> -
+                                                <span>{{ product.user.location }}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-3 col-sm-2 hidden-md hidden-lg text-right">
+                                            <span class="price"><sup>$</sup>{{ product.total }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8">
+                            <div class="listing_info">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-10">
+                                        <span class="condition_label">{{ product.condition }}</span>
+                                        &nbsp;•&nbsp;<span class="modeln_label">{{ product.model }}</span>
+                                        &nbsp;•&nbsp;<span class="color_label">{{ product.color }}</span>
+                                        &nbsp;•&nbsp;<span class="storage_label">{{ product.storage }}</span>
+                                        <i class="fa fa-fw fa-star" style="color: #F76808;"></i>
+
+                                        <span class="has_tooltip" style="color: #f76808;" data-title="Optional Express Shipping (1-2 days) for $25" data-original-title="" title="">
+                                            <i class="fa fa-fw fa-bolt"></i>
+                                        </span>
+                                        <div class="clearfix"></div>
+                                        <div class="headline hidden-xs text-nowrap" style="overflow: hidden;">
+                                            {{ product.system }} {{ product.storage }} {{ product.color }} {{ product.model }}
+                                        </div>
+                                    </div>
+                                    <div class="hidden-xs hidden-sm col-md-2 text-right">
+
+                                        <span class="price"><sup>$</sup>{{ product.total }}</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+        </div>
+
+		<div class="col-xs-12 col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9" style="margin-top: 20px;">
+            {% if count == 0%}
+			<a href="{% url 'sell'%}" class="btn btn-primary btn-block" style="margin-bottom: 10px;" title="Sell my {{ type.name }}">
+				Sell this device
+			</a>
+            {% else %}
+			<div class="panel panel-default" align="center" style="margin-top: 20px;">
+				<div class="panel-heading">Seller Icons</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-4">
+							<span class="seller_tag _trusted" style="display: block;"><i class="fa fa-trophy" aria-hidden="true"></i></span>
+							<span>Trusted Seller</span>
+						</div>
+						<div class="col-xs-4">
+							<span class="seller_tag _paypal" style="display: block;"><i class="fa fa-paypal" aria-hidden="true"></i></span>
+							<span>Paypal Verified</span>
+						</div>
+					</div>
+				</div>
+		    </div>
+            {% endif%}
+	    </div>
+    </div>
+</section>
+
+
+{%	endblock	%}
+
+
+
+{% block js %}
+<script type="text/javascript">
+	params = {"color": [], "product_edition": [], "product_model": [], "storage": [], "condition": []}
+
+	function refresh_page() {
+		var parameters = $.param(params, true);
+		if (parameters) {
+			window.location.href = window.location.pathname + '?' + parameters;
+		} else {
+			window.location.href = window.location.pathname;
+		}
+	};
+
+	function clear_filters() {
+		params = [];
+		refresh_page();
+	};
+
+	$(function() {
+		for (var filter_key in params) {
+			if (params[filter_key].constructor === Array) {
+				for (var slug in params[filter_key]) {
+					$("input[type=checkbox][name="+ filter_key +"][value='"+ params[filter_key][slug] +"']", "#filters").prop("checked", true);
+				}
+			} else {
+				$("input[name="+ filter_key +"][value="+ params[filter_key] +"]", "#filters").prop("checked", true);
+			}
+		}
+
+
+		$("input[type=checkbox]", "#filters").not("[data-single=true]").change(function () {
+			var filter_key = $(this).attr("name");
+
+			if($(this).is(":checked")) {
+				params[filter_key].push($(this).attr("value"));
+			} else {
+				var index = params[filter_key].indexOf($(this).attr("value"));
+				params[filter_key].splice(index, 1);
+			}
+			refresh_page();
+		});
+
+
+		$("input[type=checkbox][data-single=true]", "#filters").change(function () {
+			var filter_key = $(this).attr("name");
+
+			if($(this).is(":checked")) {
+				params[filter_key] = $(this).attr("value");
+			} else {
+				try{
+					delete params[filter_key];
+				} catch(e) {}
+			}
+			refresh_page();
+		});
+
+
+		$("input[type=radio]", "#filters").change(function () {
+			var filter_key = $(this).attr("name");
+			params[filter_key] = $(this).attr("value");
+			refresh_page();
+		});
+
+
+		$("#clear_filters").click(function(){
+			clear_filters();
+		});
+
+
+		$("a[data-facet-link]").click(function () {
+			var filter_key = $(this).data("name");
+
+			$(this).parents(".modal").modal("hide");
+
+
+			if (params[filter_key].indexOf($(this).data("value")) < 0) {
+				params[filter_key].push($(this).data("value"));
+				refresh_page();
+			}
+		});
+
+	});
+
+</script>
+
+<script type="text/javascript">
+
+	function showFilterModal() {
+		jQuery("#filters").detach().appendTo("#filter_modal .modal-body");
+		$("#filter_modal").modal("show");
+	}
+
+	$(function () {
+		$('#filter_modal').on('hide.bs.modal', function () {
+			jQuery("#filters").detach().appendTo("#filter_container");
+		});
+	});
+</script>
+
+{% endblock %}
